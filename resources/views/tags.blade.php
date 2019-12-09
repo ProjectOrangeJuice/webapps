@@ -1,8 +1,8 @@
 @extends("layouts.master")
 
-
 @section("content")
 <h1> {{ $tag->tag ?? "Oops!" }}</h1>
+<p>There are {{ $posts->total() ?? 0 }} results!</p>
 <hr>
 @if (count($posts ?? []) === 0)
     @if ($errors->any())
@@ -20,6 +20,7 @@
         <h2>{{ $post->title }}</h2>
         <h5> By {{ $post->user->name }} </h5>
         <p>{{ Str::limit($post->content,250,"...") }}</p>
+        <p> {{ count($post->comments) }} comments
         
     @endforeach
 @endif
