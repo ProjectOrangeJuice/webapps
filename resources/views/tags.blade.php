@@ -20,10 +20,14 @@
     
 @else
     @foreach ($posts as $post)
+    <a href="{{ route('post.show',['id' => $post->id])}}" class="text-body">
+        <div>
         <h2>{{ $post->title }}</h2>
         <h5> By {{ $post->user->name }} </h5>
         <p>{{ Str::limit($post->content,250,"...") }}</p>
-        <p> {{ count($post->comments) }} comments
+        </div>
+    </a>
+        <p class="text-primary"> {{ count($post->comments) }} comments
         
     @endforeach
 
