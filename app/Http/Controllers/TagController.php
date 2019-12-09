@@ -15,13 +15,22 @@ class TagController extends Controller
     public function index(Request $request)
     {
             if($request->has("search")){
-                $tag = $request->search;
-                return view("tags")->withErrors(["The tag $tag was not found"]);
+                $tagText = $request->search;
+                $tag = Tag::where("tag",$tagText)->first();
+
+                if($tag == null){
+                    return view("tags")->withErrors(["The tag $tag was not found"]);
+                }else{
+                    $posts = $tag->posts()->paginate(10)->appends(["search"=>$tag->tag]);
+                    return view("tags",["tag"=>$tag,"posts"=>$posts]);
+                }
+                
+                
             }else{
                 $posts = [];
                 while(count($posts) === 0 ){
                     $tag = Tag::all()->random();
-                    $posts = $tag->posts()->paginate(10);
+                    $posts = $tag->posts()->paginate(10)->appends(["search"=>$tag->tag]);
                 }
                 return view("tags",["tag"=>$tag,"posts"=>$posts]);
             }
