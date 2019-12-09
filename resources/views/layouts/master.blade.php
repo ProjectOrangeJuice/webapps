@@ -31,7 +31,9 @@
             <ul class="navbar-nav mr-auto">
 
                 @if (!Request::is("/"))
+                <a href="/">
                 <h1>Some name</h1>
+                </a>
                 @endif
 
             </ul>
