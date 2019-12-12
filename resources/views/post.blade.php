@@ -22,4 +22,20 @@
 
 <hr>
 <h2>Comments</h2>
+
+@foreach($post->comments as $comment)
+<div>
+<p> {{ $comment->comment }}</p>
+<div class="row">
+<div class="col-4">
+<p>By {{ $comment->user->name}}, {{ $comment->created_at}} </p>
+</div>
+</div>
+
+
+
+</div>
+
+@endforeach
+
 @endsection
