@@ -58,7 +58,7 @@
             </div>
         </div>
     </nav>
-
+<hr>
     <div class="container" style="height:100%">
         @yield("content")
     </div>
