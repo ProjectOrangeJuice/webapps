@@ -27,7 +27,7 @@
         <p>{{ Str::limit($post->content,250,"...") }}</p>
         </div>
     </a>
-        <p class="text-primary"> {{ count($post->comments) }} comments
+        <p class="text-success"> {{ count($post->comments) }} comments
         
     @endforeach
 
