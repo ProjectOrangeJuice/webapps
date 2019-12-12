@@ -8,7 +8,7 @@
 <div class="col">
 <p>Tags: @foreach($post->tags as $tag)
 {{ $loop->first ? '' : "," }}
-{{ $tag->tag }}
+<a href="{{ route('tag.index',['search' => $tag->tag])}}">{{ $tag->tag }}</a>
 @endforeach
 </p>
 <p>Author: {{ $post->user->name }}</p>
