@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\User;
 class UsersTableSeeder extends Seeder
 {
     /**
@@ -10,9 +11,13 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $notepad = factory(App\Notepad::class)->make();
-        $notepad->user->admin = true;
-        $notepad->save();
+        $u = new User();
+        $u->name = "Oliver";
+        $u->password = bcrypt("password");
+        $u->email = "admin@admin.com";
+        $u->admin = true;
+        $u->save();
+       
 
         //factory(App\User::class,50)->create();
         //Create a notepad and user at the same time
