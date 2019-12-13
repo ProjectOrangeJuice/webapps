@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserTags extends Migration
+class CreateTagUser extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUserTags extends Migration
      */
     public function up()
     {
-        Schema::create('user_tags', function (Blueprint $table) {
+        Schema::create('tag_user', function (Blueprint $table) {
             $table->primary(["user_id","tag_id"]);
             $table->unsignedBigInteger("user_id");
             $table->unsignedBigInteger("tag_id");
@@ -32,6 +32,6 @@ class CreateUserTags extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_tags');
+        Schema::dropIfExists('tag_user');
     }
 }
