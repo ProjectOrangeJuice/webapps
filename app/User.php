@@ -22,7 +22,7 @@ class User extends Authenticatable
     }
 
     public function admins(){
-        return $this->hasMany("App\Tag");
+        return $this->belongsToMany("App\Tag");
     }
 
     public function comments()
