@@ -1,6 +1,9 @@
 @extends("layouts.master")
 
 @section("content")
+
+
+
 <div class="row">
 <div class="col-lg">
 <h1>{{ $post->title }} </h1>
@@ -22,25 +25,12 @@
 
 <hr>
 <h2>Comments</h2>
-<h4>Write a comment</h4>
-<form class="form-group" action="/comment/1" method="POST">
-  {{ csrf_field() }}
-    <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
-    <button>Send</button>
-</form>
-@foreach($post->comments as $comment)
-<div>
-<p> {{ $comment->comment }}</p>
-<div class="row">
-<div class="col-4">
-<p>By {{ $comment->user->name}}, {{ $comment->created_at}} </p>
+<script>
+  var urlToSend = "{{route('createComment',$post->id)}}";
+  </script>
+<div id="app">
+  <post></post>
 </div>
-</div>
-
-
-
-</div>
-
-@endforeach
 
 @endsection
+
