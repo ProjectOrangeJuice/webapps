@@ -27,11 +27,7 @@
 <h2>Comments</h2>
 <script>
   var urlToSend = "{{route('createComment',$post->id)}}";
-  var amILoggedIn = @auth
-               1
-                @else
-                0
-                @endauth
+  var userId = {{ Auth::id() ?? -1 }};
   </script>
 <div id="app">
   <post></post>
