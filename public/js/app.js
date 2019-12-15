@@ -37345,7 +37345,14 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c("button", { on: { click: _vm.sendComment } }, [_vm._v("Send")])
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  on: { click: _vm.sendComment }
+                },
+                [_vm._v("Send")]
+              )
             ],
             2
           )
