@@ -23,10 +23,11 @@
 <hr>
 <h2>Comments</h2>
 <h4>Write a comment</h4>
-<div class="form-group">
-    <textarea class="form-control" rows="4" id="comment"></textarea>
+<form class="form-group" action="/comment/1" method="POST">
+  {{ csrf_field() }}
+    <textarea class="form-control" rows="4" name="comment" id="comment"></textarea>
     <button>Send</button>
-  </div>
+</form>
 @foreach($post->comments as $comment)
 <div>
 <p> {{ $comment->comment }}</p>
