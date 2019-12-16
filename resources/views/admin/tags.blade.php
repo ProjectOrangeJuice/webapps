@@ -4,13 +4,15 @@
 <h1> Tags </h1>
 <hr>
 
-<form>
-    <input name="tag" method="POST" action="/admin/tags/make" />
+<form  method="POST" action="/admin/tags/make">
+    @csrf
+    <input name="tag" />
     <input type="submit" value="Make"/>
 </form>
 
-<form>
-    <input name="tag" method="POST" action="/admin/tags/delete"/>
+<form method="POST" action="/admin/tags/delete">
+    @csrf
+    <input name="tag" />
     <input type="submit" value="Delete"/>
 </form>
 

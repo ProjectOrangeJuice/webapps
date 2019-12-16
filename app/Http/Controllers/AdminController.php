@@ -20,11 +20,14 @@ class AdminController extends Controller
     public function makeTag(Request $request){
         $tag = new Tag;
         $tag->tag = $request->tag;
+        $tag->save();
+        return redirect()->back();
     }
 
     public function deleteTag(Request $request){
         $tag = Tag::where("tag",$request->tag)->first();
         $tag->delete();
+        return redirect()->back();
     }
 
     public function user($id){
