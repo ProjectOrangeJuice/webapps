@@ -1994,6 +1994,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2068,9 +2069,9 @@ __webpack_require__.r(__webpack_exports__);
 
         _this2.uimages = [];
       })["catch"](function (response) {
-        response.response.data.errors.forEach(function (e) {
-          this.errors.push(e);
-        });
+        for (var key in response.response.data.errors) {
+          _this2.errors.push(response.response.data.errors[key]);
+        }
       });
     },
     removeImage: function removeImage(img) {
@@ -37617,7 +37618,9 @@ var render = function() {
               "div",
               { staticClass: "alert alert-danger" },
               _vm._l(_vm.errors, function(error) {
-                return _c("li", [_vm._v(_vm._s(error))])
+                return _c("li", [
+                  _vm._v("\n        " + _vm._s(error[0]) + "\n        ")
+                ])
               }),
               0
             )
