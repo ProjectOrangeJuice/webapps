@@ -91,9 +91,10 @@ class PostController extends Controller
     }
 
 
-    public function imageDelete(Request $request){
-        $image = Image::where("location",$request->image);
-        $path = "../public/publicImg/"+$request->image;
+    public function imageDelete($img){
+     
+        $image = Image::where("location",$img);
+        $path = "../public/publicImg/".$img;
         if(File::exists($path)) {
             File::delete($path);
             $image->delete();
