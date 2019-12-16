@@ -33,5 +33,7 @@ Route::get("/post","PostController@create");
 
 Route::post("/post","PostController@store");
 
+Route::post("/images","PostController@imageUpload");
+
 Route::post("/comment/{post}",  "CommentController@store")->name("createComment");
 Route::delete("/comment/{post}",  "CommentController@destroy")->name("deleteComment");
