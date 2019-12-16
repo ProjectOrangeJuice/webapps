@@ -8,7 +8,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-Vue.component('post', require('./components/Post.vue').default);
+Vue.component('comments', require('./components/Comments.vue').default);
 
 /**
  * The following block of code may be used to automatically register your
