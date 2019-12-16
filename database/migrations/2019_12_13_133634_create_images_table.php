@@ -17,7 +17,6 @@ class CreateImagesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('post_id');
             $table->string("location");
-            $table->string('alt');
             $table->timestamps();
             $table->foreign("post_id")->references("id")->on("posts")->onDelete("cascade")->onUpdate("cascade");
         });

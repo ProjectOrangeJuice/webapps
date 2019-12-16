@@ -2033,6 +2033,7 @@ __webpack_require__.r(__webpack_exports__);
           //upload the images
           var form = new FormData();
           form.append("image", img);
+          form.append("post", response.data.id);
           axios.post("/images", form).then(function (response) {
             console.log("SUCCESS!!" + response);
           })["catch"](function (response) {

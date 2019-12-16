@@ -82,13 +82,12 @@ class PostController extends Controller
 
         request()->image->move(public_path('publicImg'), $imageName);
 
-        
+        $image = new Image;
+        $image->location = $imageName;
+        $image->post_id = $request->post;
+        $image->save();
 
-        return back()
-
-            ->with('success','You have successfully upload image.')
-
-            ->with('image',$imageName);
+        return $image;
     }
 
     /**

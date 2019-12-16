@@ -52,7 +52,8 @@ export default {
       tag: "",
       tags: [],
       content: "",
-      uimages: []
+      uimages: [],
+      errors: []
     };
   },
   methods: {
@@ -89,14 +90,15 @@ export default {
             let form = new FormData();
 
             form.append("image", img);
+            form.append("post",response.data.id);
 
             axios
               .post("/images", form)
               .then(function(response) {
-                console.log("SUCCESS!!" + response);
+                this.uimages.splice(img,1);
               })
               .catch(function(response) {
-                console.log("FAILURE!!" + response);
+                 this.errors = response.response.data.errors["image"];
               });
           });
         })
