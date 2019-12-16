@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('index', ["hideSearch"=>true]);
 })->name("home");
 
 Route::get('/tags', "TagController@index")->name("tag.index");
