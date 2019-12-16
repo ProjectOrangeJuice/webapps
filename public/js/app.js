@@ -1986,6 +1986,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1993,8 +2001,22 @@ __webpack_require__.r(__webpack_exports__);
       tag: "",
       tags: [],
       content: "",
-      uimages: []
+      uimages: [],
+      images: [],
+      errors: []
     };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get("/postData/" + editCode).then(function (response) {
+      _this.title = response.data.title;
+      _this.tags = response.data.tags;
+      _this.content = response.data.content;
+      _this.images = response.data.images;
+    })["catch"](function (response) {
+      console.log("Error " + response);
+    });
   },
   methods: {
     addTag: function addTag() {
@@ -2016,8 +2038,9 @@ __webpack_require__.r(__webpack_exports__);
       this.uimages.splice(f, 1);
     },
     save: function save() {
-      var _this = this;
+      var _this2 = this;
 
+      this.errors = [];
       var mTag = [];
       this.tags.forEach(function (item) {
         mTag.push(item["name"]);
@@ -2025,24 +2048,40 @@ __webpack_require__.r(__webpack_exports__);
       axios.post("/post", {
         title: this.title,
         tags: mTag,
-        content: this.content
+        content: this.content,
+        code: editCode
       }).then(function (response) {
         console.log(response);
+        editCode = response.id;
 
-        _this.uimages.forEach(function (img) {
+        _this2.uimages.forEach(function (img) {
           //upload the images
           var form = new FormData();
           form.append("image", img);
           form.append("post", response.data.id);
           axios.post("/images", form).then(function (response) {
-            console.log("SUCCESS!!" + response);
+            this.images.push(response.data.location);
           })["catch"](function (response) {
-            console.log("FAILURE!!" + response);
+            this.errors.push(response.response.data.errors["image"]);
           });
         });
+
+        _this2.uimages = [];
       })["catch"](function (response) {
-        console.log("error");
-        console.log(response);
+        response.response.data.errors.forEach(function (e) {
+          this.errors.push(e);
+        });
+      });
+    },
+    removeImage: function removeImage(img) {
+      var _this3 = this;
+
+      axios["delete"]("/images", {
+        image: img
+      }).then(function (response) {
+        _this3.images.splice(img, 1);
+      })["catch"](function (response) {
+        console.log("Error " + response);
       });
     }
   }
@@ -37573,6 +37612,17 @@ var render = function() {
     _c(
       "div",
       [
+        _vm.errors.length > 0
+          ? _c(
+              "div",
+              { staticClass: "alert alert-danger" },
+              _vm._l(_vm.errors, function(error) {
+                return _c("li", [_vm._v(_vm._s(error))])
+              }),
+              0
+            )
+          : _vm._e(),
+        _vm._v(" "),
         _c("h3", [_vm._v("Title")]),
         _vm._v(" "),
         _c("input", {
@@ -37712,6 +37762,24 @@ var render = function() {
                 on: {
                   click: function($event) {
                     return _vm.removeFile(img)
+                  }
+                }
+              },
+              [_vm._v("Remove")]
+            )
+          ])
+        }),
+        _vm._v(" "),
+        _vm._l(_vm.images, function(img) {
+          return _c("div", [
+            _c("img", { attrs: { src: "publicImg/" + img.location } }),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                on: {
+                  click: function($event) {
+                    return _vm.removeImg(img)
                   }
                 }
               },
