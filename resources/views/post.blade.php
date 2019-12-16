@@ -22,7 +22,11 @@
 
 
 <p> {{ $post->content }}</p>
+@foreach ($post->images as $image)
 
+<img src="/publicImg/{{$image->location}}">
+    
+@endforeach
 <hr>
 <h2>Comments</h2>
 <script>
