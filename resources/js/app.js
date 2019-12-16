@@ -12,6 +12,8 @@ Vue.component('comments', require('./components/Comments.vue').default);
 
 Vue.component('posteditor', require('./components/PostEditor.vue').default);
 
+Vue.component('adminuser', require('./components/adminuser.vue').default);
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

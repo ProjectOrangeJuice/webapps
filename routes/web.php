@@ -38,6 +38,9 @@ Route::post("/images","PostController@imageUpload");
 Route::delete("/image/{img}","PostController@imageDelete");
 
 Route::get("/admin/users","AdminController@users");
+Route::get("/admin/user/{user}","AdminController@user");
+Route::update("/admin/user/{user}","AdminController@updateUser");
+Route::delete("/admin/user/{user}","AdminController@deleteUser");
 
 Route::post("/comment/{post}",  "CommentController@store")->name("createComment");
 Route::delete("/comment/{post}",  "CommentController@destroy")->name("deleteComment");
