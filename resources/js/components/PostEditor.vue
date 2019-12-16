@@ -114,25 +114,32 @@ export default {
         .then(response => {
           console.log(response);
           editCode = response.id;
-          this.uimages.forEach(function(img) {
+          for(var key in this.uimages){
+            var img = this.uimages[key];
+    
+          
             //upload the images
             let form = new FormData();
 
             form.append("image", img);
             form.append("post", response.data.id);
-
+           
             axios
               .post("/images", form)
               .then(function(response) {
-                this.images.push(response.data.location);
-              })
+               
+                this.images.push(response.data);
+
+              }.bind(this))
               .catch(function(response) {
+                console.log("error2 "+response);
                 this.errors.push(response.response.data.errors["image"]);
               });
-          });
+          }
           this.uimages = [];
         })
         .catch(response => {
+            console.log("error "+response);
             for(var key in response.response.data.errors){
               this.errors.push(response.response.data.errors[key]);
             }

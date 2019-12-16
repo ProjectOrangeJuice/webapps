@@ -2058,20 +2058,24 @@ __webpack_require__.r(__webpack_exports__);
         console.log(response);
         editCode = response.id;
 
-        _this2.uimages.forEach(function (img) {
-          //upload the images
+        for (var key in _this2.uimages) {
+          var img = _this2.uimages[key]; //upload the images
+
           var form = new FormData();
           form.append("image", img);
           form.append("post", response.data.id);
           axios.post("/images", form).then(function (response) {
-            this.images.push(response.data.location);
-          })["catch"](function (response) {
+            this.images.push(response.data);
+          }.bind(_this2))["catch"](function (response) {
+            console.log("error2 " + response);
             this.errors.push(response.response.data.errors["image"]);
           });
-        });
+        }
 
         _this2.uimages = [];
       })["catch"](function (response) {
+        console.log("error " + response);
+
         for (var key in response.response.data.errors) {
           _this2.errors.push(response.response.data.errors[key]);
         }
