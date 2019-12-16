@@ -12,6 +12,21 @@ class AdminController extends Controller
         return view("admin/users",["users"=>$users]);
     }
 
+    public function tags(){
+        $tags = Tag::all();
+        return view("admin/tags",["tags"=>$tags]);
+    }
+
+    public function makeTag(Request $request){
+        $tag = new Tag;
+        $tag->tag = $request->tag;
+    }
+
+    public function deleteTag(Request $request){
+        $tag = Tag::where("tag",$request->tag)->first();
+        $tag->delete();
+    }
+
     public function user($id){
         $user = User::find($id);
         return view("admin/user",["user"=>$user]);
