@@ -1903,7 +1903,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteComment: function deleteComment(id) {
       var _this3 = this;
 
-      axios["delete"]("/comment/" + id).then(function (response) {
+      axios["delete"]("/api/comment/" + id).then(function (response) {
         _this3.moveComments(_this3.pageNumber());
 
         _this3.errors = [];

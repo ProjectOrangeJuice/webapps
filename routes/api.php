@@ -47,3 +47,6 @@ Route::middleware('auth:api')->delete("/image/{img}","PostController@imageDelete
 
 Route::middleware('auth:api')->put("/admin/user/{user}","AdminController@updateUser");
 Route::middleware('auth:api')->delete("/admin/user/{user}","AdminController@deleteUser");
+
+Route::middleware('auth:api')->post("/comment/{post}",  "CommentController@store")->name("createComment");
+Route::middleware('auth:api')->delete("/comment/{post}",  "CommentController@destroy")->name("deleteComment");
