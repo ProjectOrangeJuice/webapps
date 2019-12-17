@@ -46,6 +46,7 @@ export default {
       .catch(response => {
         console.log("Error " + response);
       });
+
   },
   methods: {
     sendComment: function() {

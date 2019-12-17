@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Passport\Passport;
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -24,7 +25,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        $this->registerPolicies();
 
         Gate::define('edit-user', function ($user, $editUser) {
             if ($user->admin){
@@ -50,5 +50,8 @@ class AuthServiceProvider extends ServiceProvider
                 return $user->posts->find($post->id) != null;
             }
         });
+
+
+        Passport::routes();
     }
 }
