@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Tag;
 use App\Post;
+use App\Quote\Qod;
 
 class TagController extends Controller
 {
@@ -13,8 +14,9 @@ class TagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, Qod $q)
     {
+        dd($q);
             if($request->has("search")){
                 $tagText = $request->search;
                 $tag = Tag::where("tag",$tagText)->first();
