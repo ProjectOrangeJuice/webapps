@@ -25,30 +25,31 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        Gate::before(function ($user,$ability){
+            return $user->admin;
+        });
+
+        Gate::define("admin-tasks", function($user){
+            return $user->admin;
+        });
 
         Gate::define('edit-user', function ($user, $editUser) {
-            if ($user->admin){
-            return true;
-            }else{
+           
                 return $user->id == $editUser->id;
-            }
+            
         });
 
         Gate::define('edit-tag', function ($user, $tag) {
-            if($user->admin){
-                return true;
-            }else{
+           
                 return $user->admins->find($tag->id) != null;
-            }
+            
            
         });
 
         Gate::define('edit-post', function ($user, $post) {
-            if($user->admin){
-                return true;
-            }else{
+           
                 return $user->posts->find($post->id) != null;
-            }
+            
         });
 
 
