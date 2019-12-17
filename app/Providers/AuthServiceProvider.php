@@ -38,7 +38,7 @@ class AuthServiceProvider extends ServiceProvider
             if($user->admin){
                 return true;
             }else{
-                return $user->tags->find($tag->id) != null;
+                return $user->admins->find($tag->id) != null;
             }
            
         });

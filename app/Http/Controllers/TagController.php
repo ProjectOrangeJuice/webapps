@@ -39,6 +39,12 @@ class TagController extends Controller
             
     }
 
+    public function mod(Tag $tag){
+        $posts = $tag->posts->where("pivot.confirmed",false);
+        return view("admin/modTags",["tag"=>$tag,"posts"=>$posts]);
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *

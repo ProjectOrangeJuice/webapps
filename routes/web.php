@@ -50,5 +50,9 @@ Route::post("/admin/tags/delete","AdminController@deleteTag");
 Route::get("/account","UserController@index");
 Route::post("/account","UserController@update");
 
+
+Route::get("/mod/{tag}","TagController@mod");
+Route::post("/postMod/{post}","PostController@update");
+
 Route::post("/comment/{post}",  "CommentController@store")->name("createComment");
 Route::delete("/comment/{post}",  "CommentController@destroy")->name("deleteComment");
