@@ -13,9 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+ Route::middleware('auth:api')->get('/user', function (Request $request) {
+     return $request->user();
+ });
 
 
 Route::middleware('auth:api')->get('/notepad', function (Request $request) {
@@ -37,5 +37,7 @@ Route::get("/comments/{post}", function($post){
    return $comments;
 });
 
+Route::middleware('auth:api')->get("/postData/{id}","PostController@data");
 
 
+Route::middleware('auth:api')->post("/post","PostController@store");
