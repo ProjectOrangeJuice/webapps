@@ -7,7 +7,7 @@ use App\Post;
 use App\Tag;
 use Auth;
 use File;
-use Illuminate\Support\Facades\Gate;
+use Gate;
 use App\Image;
 
 class PostController extends Controller

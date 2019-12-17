@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Tag;
-use Illuminate\Support\Facades\Gate;
+use Gate;
 
 class AdminController extends Controller
 {
