@@ -4,7 +4,8 @@
 @section("content")
 <div class="h-75 row align-items-center">
     <div class="col">
-        <h1 class="text-center">Some name</h1>
+        <h1 class="text-center">Toogle</h1>
+        <div class="text-center">The tagged post website</div>
         <form class="form-group" action="/tags" method="GET">
             <div class="input-group">
                 <input type="text" class="form-control" name="search" placeholder="Search for a tag">

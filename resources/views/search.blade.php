@@ -4,7 +4,7 @@
 @section("content")
 <div class="h-75 row align-items-center">
     <div class="col">
-        <h1 class="text-center">Some name</h1>
+        <h1 class="text-center">Toogle</h1>
         <p class="text-center">Full search</p>
         <form class="form-group" action="/search" method="GET">
          
