@@ -43,8 +43,7 @@ Route::get("/post","PostController@create");
 
 
 
-Route::post("/images","PostController@imageUpload");
-Route::delete("/image/{img}","PostController@imageDelete");
+
 
 Route::get("/admin/users","AdminController@users");
 Route::get("/admin/user/{user}","AdminController@user");

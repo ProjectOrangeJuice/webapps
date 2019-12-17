@@ -41,3 +41,6 @@ Route::middleware('auth:api')->get("/postData/{id}","PostController@data");
 
 
 Route::middleware('auth:api')->post("/post","PostController@store");
+
+Route::middleware('auth:api')->post("/images","PostController@imageUpload");
+Route::middleware('auth:api')->delete("/image/{img}","PostController@imageDelete");

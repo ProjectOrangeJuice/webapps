@@ -128,7 +128,7 @@ export default {
             form.append("post", response.data.id);
            
             axios
-              .post("/images", form)
+              .post("/api/images", form)
               .then(function(response) {
                
                 this.images.push(response.data);
@@ -155,7 +155,7 @@ export default {
     },
     removeImg(img) {
       axios
-        .delete("/image/"+img.location)
+        .delete("/api/image/"+img.location)
         .then(response => {
           this.images.splice(img, 1);
         })

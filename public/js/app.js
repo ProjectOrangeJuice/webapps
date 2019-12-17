@@ -2068,7 +2068,7 @@ __webpack_require__.r(__webpack_exports__);
           var form = new FormData();
           form.append("image", img);
           form.append("post", response.data.id);
-          axios.post("/images", form).then(function (response) {
+          axios.post("/api/images", form).then(function (response) {
             this.images.push(response.data);
           }.bind(_this2))["catch"](function (response) {
             console.log("error2 " + response);
@@ -2092,7 +2092,7 @@ __webpack_require__.r(__webpack_exports__);
     removeImg: function removeImg(img) {
       var _this3 = this;
 
-      axios["delete"]("/image/" + img.location).then(function (response) {
+      axios["delete"]("/api/image/" + img.location).then(function (response) {
         _this3.images.splice(img, 1);
       })["catch"](function (response) {
         if (response.response.status == 401) {
