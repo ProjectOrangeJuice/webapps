@@ -1,5 +1,6 @@
 <?php
 
+use App\Notepad;
 use Illuminate\Database\Seeder;
 use App\User;
 class UsersTableSeeder extends Seeder
@@ -17,6 +18,11 @@ class UsersTableSeeder extends Seeder
         $u->email = "admin@admin.com";
         $u->admin = true;
         $u->save();
+
+        $notepad = new Notepad();
+        $notepad->content= "Hello!";
+        $notepad->user_id = $u->id;
+        $notepad->save();
        
 
         //factory(App\User::class,50)->create();
