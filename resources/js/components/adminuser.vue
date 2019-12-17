@@ -73,7 +73,7 @@ export default {
     save() {
       this.errors = [];
       axios
-        .update("/admin/user/" + user["id"], {
+        .update("/api/admin/user/" + user["id"], {
           name: this.name,
           email: this.email,
           admin: this.admin,
@@ -89,7 +89,7 @@ export default {
     deleteU() {
       this.errors = [];
       axios
-        .delete("/admin/user/" + user["id"])
+        .delete("/api/admin/user/" + user["id"])
         .then(response => {
           window.location.href = '/admin/users';
         })
