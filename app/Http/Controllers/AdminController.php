@@ -29,28 +29,6 @@ class AdminController extends Controller
         }
     }
 
-    public function makeTag(Request $request)
-    {
-        if (Gate::allows("admin-tasks")) {
-            $tag = new Tag;
-            $tag->tag = $request->tag;
-            $tag->save();
-            return redirect()->back();
-        } else {
-            abort(403);
-        }
-    }
-
-    public function deleteTag(Request $request)
-    {
-        if (Gate::allows("admin-tasks")) {
-            $tag = Tag::where("tag", $request->tag)->first();
-            $tag->delete();
-            return redirect()->back();
-        } else {
-            abort(403);
-        }
-    }
 
     public function user($id)
     {
