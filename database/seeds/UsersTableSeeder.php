@@ -13,7 +13,7 @@ class UsersTableSeeder extends Seeder
     {
         $u = new User();
         $u->name = "Oliver";
-        $u->password = bcrypt("password");
+        $u->password = "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi";
         $u->email = "admin@admin.com";
         $u->admin = true;
         $u->save();
