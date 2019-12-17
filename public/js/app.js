@@ -2022,6 +2022,8 @@ __webpack_require__.r(__webpack_exports__);
 
         if (response.response.status == 401) {
           alert("You need to login!");
+        } else if (response.response.status == 404) {
+          window.location = "/";
         }
       });
     }
@@ -2094,6 +2096,17 @@ __webpack_require__.r(__webpack_exports__);
 
       axios["delete"]("/api/image/" + img.location).then(function (response) {
         _this3.images.splice(img, 1);
+      })["catch"](function (response) {
+        if (response.response.status == 401) {
+          alert("You need to login!");
+        }
+
+        console.log("Error " + response);
+      });
+    },
+    deletePost: function deletePost() {
+      axios["delete"]("/api/post/" + editCode).then(function (response) {
+        window.location = "/";
       })["catch"](function (response) {
         if (response.response.status == 401) {
           alert("You need to login!");
@@ -37978,9 +37991,14 @@ var render = function() {
     _vm._v(" "),
     _c("hr"),
     _vm._v(" "),
-    _c("button", { staticClass: "btn btn-danger form-control" }, [
-      _vm._v("Delete")
-    ])
+    _c(
+      "button",
+      {
+        staticClass: "btn btn-danger form-control",
+        on: { click: _vm.deletePost }
+      },
+      [_vm._v("Delete")]
+    )
   ])
 }
 var staticRenderFns = []

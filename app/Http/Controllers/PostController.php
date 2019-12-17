@@ -26,6 +26,9 @@ class PostController extends Controller
         $post = Post::with(["images", "tags" => function ($query) {
             $query->select('tag', "id", "confirmed");
         }])->where("id", $id)->first();
+        if($post == null){
+            abort(404);
+        }
         return $post;
     }
 
@@ -154,6 +157,24 @@ class PostController extends Controller
             } else {
                 $post->tags()->detach($tag->id);
             }
+        }
+    }
+
+
+    public function destroy(Post $post){
+
+        if (Gate::allows("edit-post",$post)){
+            //Delete the images
+            foreach($post->images as $img){
+                $path = "../public/publicImg/" . $img->location;
+                if (File::exists($path)) {
+                    File::delete($path);
+                    $img->delete();
+                }
+            }
+
+
+            $post->delete();
         }
     }
 }
