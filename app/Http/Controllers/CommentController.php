@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Comment;
 use Auth;
+use Illuminate\Auth\Access\Gate;
 
 class CommentController extends Controller
 {
@@ -48,6 +49,7 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
+        if(Gate::allows("edit-comment")){
         //get the comment
         $comment = Comment::find($id);
         if ($comment) {
@@ -59,4 +61,5 @@ class CommentController extends Controller
             }
         }
     }
+}
 }
