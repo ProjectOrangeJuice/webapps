@@ -42,6 +42,7 @@ class SearchController extends Controller
                 }
             }
             
+            
         }else{
             $users = explode(",",$request->users);
             //Get the user id
@@ -64,6 +65,7 @@ class SearchController extends Controller
             });
 
         }
+        $selection = $selection->where("pivot.confirmed");
         $request->flash();
         return view("searchReturn",["posts"=>$selection,"hideSearch"=>true]);
     }
