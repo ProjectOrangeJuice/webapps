@@ -2206,7 +2206,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.errors = [];
-      axios.update("/api/admin/user/" + user["id"], {
+      axios.update(userLink, {
         name: this.name,
         email: this.email,
         admin: this.admin,
@@ -2221,8 +2221,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       this.errors = [];
-      axios["delete"]("/api/admin/user/" + user["id"]).then(function (response) {
-        window.location.href = '/admin/users';
+      axios["delete"](userLink).then(function (response) {
+        window.location.href = returnLink;
       })["catch"](function (response) {
         _this3.errors = response.response.data.errors;
       });
