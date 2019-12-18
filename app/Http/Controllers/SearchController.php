@@ -67,7 +67,7 @@ class SearchController extends Controller
         }
         $selection = $selection->where("pivot.confirmed");
         $request->flash();
-        return view("searchReturn",["posts"=>$selection,"hideSearch"=>true]);
+        return view("searchReturn",["title"=>"Full Search","posts"=>$selection,"hideSearch"=>true]);
     }
 
 }

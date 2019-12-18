@@ -18,7 +18,7 @@ class PostController extends Controller
     {
         $post = Post::find($id);
 
-        return view("post", ["post" => $post, "edit" => Gate::allows("edit-post", $post)]);
+        return view("post", ["title"=>$post->title,"post" => $post, "edit" => Gate::allows("edit-post", $post)]);
     }
 
     public function data($id)
@@ -40,9 +40,9 @@ class PostController extends Controller
     public function create(Request $request)
     {
         if ($request->has("post")) {
-            return view("post/create", ["post" => $request->post]);
+            return view("post/create", ["title"=>"Post editor","post" => $request->post]);
         } else {
-            return view("post/create", ["post" => -1]);
+            return view("post/create", ["title"=>"Post editor","post" => -1]);
         }
     }
 
