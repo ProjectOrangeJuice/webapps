@@ -30,10 +30,10 @@ class AdminController extends Controller
     }
 
 
-    public function user(User $id)
+    public function user(User $user)
     {
         if (Gate::allows("admin-tasks")) {
-            $user = $id;
+            //$user = $id;
             return view("admin/user", ["title"=>"User","user" => $user]);
         } else {
             abort(403);
