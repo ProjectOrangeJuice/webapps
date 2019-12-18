@@ -52,10 +52,10 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($post, Request $request)
+    public function store(Post $post, Request $request)
     {
         //check post exists
-        if (!Post::find($post)) {
+        if (!$post) {
             return response('', 404);
         }
 
