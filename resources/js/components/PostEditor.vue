@@ -19,15 +19,15 @@
       </div>
       <div class="row">
        
-        <div v-for="t in tags" class="col-">
+        <div v-for="(t,index) in tags" class="col-">
           <div v-if="!t.confirmed" class="rounded border border-danger">
             <b>{{ t.tag }}</b>
-            <button class="btn btn-danger" @click="removeTag(t)">X</button>
+            <button class="btn btn-danger" @click="removeTag(index)">X</button>
           </div>
 
           <div v-else class="rounded border border-success">
-            <b>{{ t.tag }}</b>
-            <button class="btn btn-danger">X</button>
+            <b>{{ t.tag }}</b> 
+            <button class="btn btn-danger" @click="removeTag(index)">X</button>
           </div>
         </div>
       </div>
@@ -118,6 +118,7 @@ export default {
         })
         .then(response => {
           console.log(response);
+          this.tags=response.data.tags
           editCode = response.id;
           for(var key in this.uimages){
             var img = this.uimages[key];

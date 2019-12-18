@@ -2062,6 +2062,7 @@ __webpack_require__.r(__webpack_exports__);
         code: editCode
       }).then(function (response) {
         console.log(response);
+        _this2.tags = response.data.tags;
         editCode = response.id;
 
         for (var key in _this2.uimages) {
@@ -37880,7 +37881,7 @@ var render = function() {
         _c(
           "div",
           { staticClass: "row" },
-          _vm._l(_vm.tags, function(t) {
+          _vm._l(_vm.tags, function(t, index) {
             return _c("div", { staticClass: "col-" }, [
               !t.confirmed
                 ? _c("div", { staticClass: "rounded border border-danger" }, [
@@ -37892,7 +37893,7 @@ var render = function() {
                         staticClass: "btn btn-danger",
                         on: {
                           click: function($event) {
-                            return _vm.removeTag(t)
+                            return _vm.removeTag(index)
                           }
                         }
                       },
@@ -37902,9 +37903,18 @@ var render = function() {
                 : _c("div", { staticClass: "rounded border border-success" }, [
                     _c("b", [_vm._v(_vm._s(t.tag))]),
                     _vm._v(" "),
-                    _c("button", { staticClass: "btn btn-danger" }, [
-                      _vm._v("X")
-                    ])
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        on: {
+                          click: function($event) {
+                            return _vm.removeTag(index)
+                          }
+                        }
+                      },
+                      [_vm._v("X")]
+                    )
                   ])
             ])
           }),
