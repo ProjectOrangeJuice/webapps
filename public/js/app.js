@@ -2258,7 +2258,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    axios.get("/api/notepad").then(function (response) {
+    axios.get(notepad).then(function (response) {
       _this.notes = response.data["content"];
     })["catch"](function (response) {
       console.log("Error " + response);
@@ -2266,7 +2266,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     save: function save() {
-      axios.put("/api/notepad", {
+      axios.put(notepad, {
         notepad: this.notes
       }).then(function (response) {
         console.log(response);

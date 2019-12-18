@@ -65,6 +65,9 @@
        <input type="submit" value="save">
     </form>
 
+    <script>
+        var notepad = {{route("notepad")}};
+        </script>
     <div id="app">
         <notepad></notepad>
         </div>
