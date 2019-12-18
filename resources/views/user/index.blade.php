@@ -42,7 +42,7 @@
         </ul>
     </div>
     @endif
-    <form method="POST" action="/account">
+    <form method="POST" action="{{ route("account.update")}}">
         @csrf
         <div class="form-group">
             Username: {{$user->name}}
