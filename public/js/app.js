@@ -1867,6 +1867,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1914,11 +1915,27 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    moveComments: function moveComments(num) {
+    updateComment: function updateComment(id) {
       var _this4 = this;
 
+      axios.put(commentLink + id, {
+        comment: this.commentBox
+      }).then(function (response) {
+        _this4.moveComments(_this4.pageNumber());
+
+        _this4.errors = [];
+      })["catch"](function (response) {
+        if (response.response.status == 403) {
+          //the user doesn't own this comment!
+          _this4.errors = ["You don't own this comment. You can't update it"];
+        }
+      });
+    },
+    moveComments: function moveComments(num) {
+      var _this5 = this;
+
       axios.get(commentsLink + "/?page=" + num).then(function (response) {
-        _this4.comments = response.data;
+        _this5.comments = response.data;
       })["catch"](function (response) {
         console.log("Error " + response);
       });
@@ -37748,6 +37765,21 @@ var render = function() {
                   }
                 },
                 [_vm._v("Delete this")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          comment.canEdit
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn btn-danger",
+                  on: {
+                    click: function($event) {
+                      return _vm.updateComment(comment.id)
+                    }
+                  }
+                },
+                [_vm._v("Update this")]
               )
             : _vm._e()
         ])

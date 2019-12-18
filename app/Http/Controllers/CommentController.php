@@ -77,15 +77,30 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Comment $post)
     {
-        $comment = Comment::find($id);
+        $comment = $post;
 
 
         if (Gate::allows("edit-comment", $comment)) {
             //get the comment
 
             $comment->delete();
+        } else {
+            abort(403);
+        }
+    }
+
+    public function update(Comment $post, Request $request)
+    {
+     
+        $validatedData = $request->validate([
+            "comment" => "required|min:5|max:1000"
+        ]);
+
+        if (Gate::allows("edit-comment", $post)) {
+            $post->comment = $validatedData["comment"];
+            $post->save();
         } else {
             abort(403);
         }

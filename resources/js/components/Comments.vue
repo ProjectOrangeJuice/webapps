@@ -18,6 +18,7 @@
       <p>{{ comment.comment }}</p>
       <p><i>Posted at {{comment.created_at }}</i></p>
       <button v-if="comment.canEdit" @click="deleteComment(comment.id)" class="btn btn-danger">Delete this</button>
+      <button v-if="comment.canEdit" @click="updateComment(comment.id)" class="btn btn-danger">Update this</button>
     </div>
 
     <button v-for="num in comments.last_page" :key="num" @click="moveComments(num)">
@@ -75,6 +76,25 @@ export default {
           if(response.response.status == 403){
             //the user doesn't own this comment!
             this.errors = ["You don't own this comment. You can't delete it"];
+          }
+
+        });
+
+    },
+
+     updateComment: function(id){
+       axios
+        .put(commentLink + id, {
+          comment: this.commentBox
+        })
+        .then(response => {
+          this.moveComments(this.pageNumber());
+          this.errors = [];
+        })
+        .catch(response => {
+          if(response.response.status == 403){
+            //the user doesn't own this comment!
+            this.errors = ["You don't own this comment. You can't update it"];
           }
 
         });
