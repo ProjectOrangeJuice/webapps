@@ -37735,7 +37735,7 @@ var render = function() {
             _c("i", [_vm._v("Posted at " + _vm._s(comment.created_at))])
           ]),
           _vm._v(" "),
-          _vm.user == comment.user_id
+          comment.canEdit
             ? _c(
                 "button",
                 {

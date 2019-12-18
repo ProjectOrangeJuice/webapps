@@ -30,12 +30,7 @@ Route::middleware('auth:api')->put('/notepad', function (Request $request) {
 
 });
 
-Route::get("/comments/{post}", function($post){
-    $comments = App\Comment::with(["user" => function ($query) {
-        $query->select('name',"id");
-    }])->where("post_id",$post)->orderBy('created_at', 'desc')->paginate(5);
-   return $comments;
-});
+Route::get("/comments/{post}", "CommentController@fromPost");
 
 Route::middleware('auth:api')->get("/postData/{id}","PostController@data");
 
