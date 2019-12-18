@@ -9,7 +9,7 @@
     <button @click="sendComment" class="btn btn-primary">Send</button>
     </div>
     <div v-else class="alert alert-warning">
-      <a href="/login">Login</a> to post a comment
+      <a :href="loginLink">Login</a> to post a comment
       </div>
 
 
@@ -39,7 +39,7 @@ export default {
   },
   mounted() {
     axios
-      .get("/api/comments/1")
+      .get(commentsLink)
       .then(response => {
         this.comments = response.data;
       })
@@ -58,7 +58,7 @@ export default {
           this.commentBox = "Your comment has been saved!";
           this.errors = [];
          this.moveComments(this.pageNumber);
-          
+
         })
         .catch(response => {
           this.errors = response.response.data.errors["comment"];
@@ -66,7 +66,7 @@ export default {
     },
     deleteComment: function(id){
        axios
-        .delete("/api/comment/" + id)
+        .delete(commentLink + id)
         .then(response => {
           this.moveComments(this.pageNumber());
           this.errors = [];
@@ -76,14 +76,14 @@ export default {
             //the user doesn't own this comment!
             this.errors = ["You don't own this comment. You can't delete it"];
           }
-         
+
         });
-  
+
     },
 
     moveComments: function(num) {
       axios
-        .get("/api/comments/1?page=" + num)
+        .get(commentsLink +"/?page="+ num)
         .then(response => {
           this.comments = response.data;
         })

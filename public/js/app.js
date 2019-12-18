@@ -1879,7 +1879,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    axios.get("/api/comments/1").then(function (response) {
+    axios.get(commentsLink).then(function (response) {
       _this.comments = response.data;
     })["catch"](function (response) {
       console.log("Error " + response);
@@ -1903,7 +1903,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteComment: function deleteComment(id) {
       var _this3 = this;
 
-      axios["delete"]("/api/comment/" + id).then(function (response) {
+      axios["delete"](commentLink + id).then(function (response) {
         _this3.moveComments(_this3.pageNumber());
 
         _this3.errors = [];
@@ -1917,7 +1917,7 @@ __webpack_require__.r(__webpack_exports__);
     moveComments: function moveComments(num) {
       var _this4 = this;
 
-      axios.get("/api/comments/1?page=" + num).then(function (response) {
+      axios.get(commentsLink + "/?page=" + num).then(function (response) {
         _this4.comments = response.data;
       })["catch"](function (response) {
         console.log("Error " + response);
@@ -37721,7 +37721,7 @@ var render = function() {
             )
           ])
         : _c("div", { staticClass: "alert alert-warning" }, [
-            _c("a", { attrs: { href: "/login" } }, [_vm._v("Login")]),
+            _c("a", { attrs: { href: _vm.loginLink } }, [_vm._v("Login")]),
             _vm._v(" to post a comment\n    ")
           ]),
       _vm._v(" "),
