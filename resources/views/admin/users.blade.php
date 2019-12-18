@@ -6,7 +6,7 @@
 
 @foreach ($users as $user)
 
-<li><a href="/admin/user/{{$user->id}}">{{$user->name}}, {{$user->email}}</a></li>
+<li><a href="{{route("admin.user.update",["user"=>$user->id])}}">{{$user->name}}, {{$user->email}}</a></li>
 
 @endforeach
 
