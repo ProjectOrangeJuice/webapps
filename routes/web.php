@@ -37,26 +37,26 @@ Route::get("/post/{id}","PostController@perPost")->name("post.show");
 
 Auth::routes();
 
-Route::middleware('auth')->get("/post","PostController@create");
+Route::middleware('auth')->get("/post","PostController@create")->name("post.create");
 
 
 
 
 
-Route::middleware('auth')->get("/admin/users","AdminController@users");
-Route::middleware('auth')->get("/admin/user/{user}","AdminController@user");
+Route::middleware('auth')->get("/admin/users","AdminController@users")->name("admin.users");
+Route::middleware('auth')->get("/admin/user/{user}","AdminController@user")->name("admin.user");
 
 
-Route::middleware('auth')->get("/admin/tags","AdminController@tags");
+Route::middleware('auth')->get("/admin/tags","AdminController@tags")->name("admin.tags");
 
 //These are the basic form posts.
-Route::middleware('auth')->post("/admin/tags/make","TagController@store");
-Route::middleware('auth')->post("/admin/tags/delete","TagController@destory");
+Route::middleware('auth')->post("/admin/tags/make","TagController@store")->name("admin.tags.store");
+Route::middleware('auth')->post("/admin/tags/delete","TagController@destory")->name("admin.tags.destroy");
 
-Route::middleware('auth')->get("/account","UserController@index");
-Route::middleware('auth')->post("/account","UserController@update");
+Route::middleware('auth')->get("/account","UserController@index")->name("account");
+Route::middleware('auth')->post("/account","UserController@update")->name("account.update");
 
 
-Route::middleware('auth')->get("/mod/{tag}","TagController@mod");
-Route::middleware('auth')->post("/postMod/{post}","PostController@update");
+Route::middleware('auth')->get("/mod/{tag}","TagController@mod")->name("tag.mod");
+Route::middleware('auth')->post("/postMod/{post}","PostController@update")->name("post.mod");
 
