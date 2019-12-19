@@ -18,59 +18,53 @@ class SearchController extends Controller
      */
     public function search(Request $request)
     {
-  
-        if($request->users != null && $request->tags == null){
-            $users = explode(",",$request->users);
+
+        if ($request->users != null && $request->tags == null) {
+            $users = explode(",", $request->users);
             //Get the user id
-            $u = User::WhereIn("name",$users)->get();
+            $u = User::WhereIn("name", $users)->get();
             $ids = [];
-            foreach($u as $user){
-                array_push($ids,$user->id);
+            foreach ($u as $user) {
+                array_push($ids, $user->id);
             }
-           
-            $selection = Post::WhereIn("user_id",$ids)->get();
-           
 
-        }elseif($request->tags != null && $request->users == null){
+            $selection = Post::WhereIn("user_id", $ids)->get();
+        } elseif ($request->tags != null && $request->users == null) {
 
-            $tags = explode(" ",$request->tags);
-            $tagPosts = Tag::WhereIn("tag",$tags)->get();
-            foreach($tagPosts as $tag){
-                if(isset($selection)){
-                 
-                $selection = $selection->merge($tag->posts);
-                }else{
+            $tags = explode(" ", $request->tags);
+            $tagPosts = Tag::WhereIn("tag", $tags)->get();
+            foreach ($tagPosts as $tag) {
+                if (isset($selection)) {
+
+                    $selection = $selection->merge($tag->posts);
+                } else {
                     $selection = $tag->posts;
                 }
             }
             $selection = $selection->where("pivot.confirmed");
-            
-            
-        }else{
-            $users = explode(",",$request->users);
+        } else {
+            $users = explode(",", $request->users);
             //Get the user id
-            $u = User::WhereIn("name",$users)->get();
-            $tags = explode(" ",$request->tags);
-    
+            $u = User::WhereIn("name", $users)->get();
+            $tags = explode(" ", $request->tags);
+
             $ids = [];
-            foreach($u as $user){
-                array_push($ids,$user->id);
+            foreach ($u as $user) {
+                array_push($ids, $user->id);
             }
-            $selection = Post::WhereIn("user_id",$ids)->get();
-            $selection = $selection->filter(function($value,$key) use ($tags){
+            $selection = Post::WhereIn("user_id", $ids)->get();
+            $selection = $selection->filter(function ($value, $key) use ($tags) {
                 $tagged = [];
-                foreach($value->tags as $tag){
-                    array_push($tagged,$tag->tag);
+                foreach ($value->tags as $tag) {
+                    array_push($tagged, $tag->tag);
                 }
-                                if(count((array_intersect($tagged,$tags))) > 0){
+                if (count((array_intersect($tagged, $tags))) > 0) {
                     return true;
                 }
             });
-
         }
-       
-        $request->flash();
-        return view("searchReturn",["title"=>"Full Search","posts"=>$selection,"hideSearch"=>true]);
-    }
 
+        $request->flash();
+        return view("searchReturn", ["title" => "Full Search", "posts" => $selection, "hideSearch" => true]);
+    }
 }

@@ -16,7 +16,7 @@ class AdminController extends Controller
     {
         if (Gate::allows("admin-tasks")) {
             $users = User::all();
-            return view("admin/users", ["title"=>"Users","users" => $users]);
+            return view("admin/users", ["title" => "Users", "users" => $users]);
         } else {
             abort(403);
         }
@@ -29,7 +29,7 @@ class AdminController extends Controller
     {
         if (Gate::allows("admin-tasks")) {
             $tags = Tag::all();
-            return view("admin/tags", ["title"=>"Tags","tags" => $tags]);
+            return view("admin/tags", ["title" => "Tags", "tags" => $tags]);
         } else {
             abort(403);
         }
@@ -42,7 +42,7 @@ class AdminController extends Controller
     {
         if (Gate::allows("admin-tasks")) {
             //$user = $id;
-            return view("admin/user", ["title"=>"User","user" => $user]);
+            return view("admin/user", ["title" => "User", "user" => $user]);
         } else {
             abort(403);
         }
@@ -70,10 +70,9 @@ class AdminController extends Controller
                 if (in_array($tag->tag, $tags)) {
                     //It's already a tag
                     unset($tags[array_search($tag->tag, $tags)]);
-                }else{
+                } else {
                     $user->admins()->detach($tag->id);
                 }
-             
             }
             foreach ($tags as $tag) {
                 $tag = Tag::where("tag", $tag)->first();
@@ -92,7 +91,7 @@ class AdminController extends Controller
     public function deleteUser(User $id)
     {
         if (Gate::allows("admin-tasks")) {
-            $user =$id;
+            $user = $id;
             $user->delete();
         } else {
             abort(403);

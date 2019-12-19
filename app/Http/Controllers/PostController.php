@@ -20,7 +20,7 @@ class PostController extends Controller
     {
         $post = $id;
 
-        return view("post", ["title"=>$post->title,"post" => $post, "edit" => Gate::allows("edit-post", $post)]);
+        return view("post", ["title" => $post->title, "post" => $post, "edit" => Gate::allows("edit-post", $post)]);
     }
     /**
      * Get the raw data for a post
@@ -44,9 +44,9 @@ class PostController extends Controller
     public function create(Request $request)
     {
         if ($request->has("post")) {
-            return view("post/create", ["title"=>"Post editor","post" => $request->post]);
+            return view("post/create", ["title" => "Post editor", "post" => $request->post]);
         } else {
-            return view("post/create", ["title"=>"Post editor","post" => -1]);
+            return view("post/create", ["title" => "Post editor", "post" => -1]);
         }
     }
 
@@ -93,10 +93,9 @@ class PostController extends Controller
                     if (in_array($tag->tag, $data["tags"])) {
                         //It's already a tag
                         unset($data["tags"][array_search($tag->tag, $data["tags"])]);
-                    }else{
+                    } else {
                         $post->tags()->detach($tag->id);
                     }
-                 
                 }
                 foreach ($data["tags"] as $tag) {
                     $tag = Tag::where("tag", $tag)->first();
@@ -168,10 +167,10 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $tag = $request->tag;
-        $t = Tag::Where("tag",$tag)->first();
+        $t = Tag::Where("tag", $tag)->first();
         //Update the tags
         if (Gate::allows("edit-tag", $t)) {
-            
+
 
 
             if ($request->confirm == "Confirm") {
@@ -183,12 +182,12 @@ class PostController extends Controller
                 $post->tags()->detach($tag->id);
             }
             return redirect()->back();
-        }else{
-            return response("",403);
+        } else {
+            return response("", 403);
         }
     }
 
-/**
+    /**
      * Delete a post
      */
     public function destroy(Post $post)

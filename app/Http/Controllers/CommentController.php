@@ -29,7 +29,7 @@ class CommentController extends Controller
             //We don't use the auth middleware, so we have to get the user this way
             //so we can't use the gates
             $user = $request->user('api');
-          $comment->canEdit = $this->canEdit($comment,$user);
+            $comment->canEdit = $this->canEdit($comment, $user);
         }
         return $comments;
     }
@@ -37,19 +37,19 @@ class CommentController extends Controller
     /**
      * Check to see if the current user can edit this comment
      */
-    public function canEdit($comment, $user){
-       
+    public function canEdit($comment, $user)
+    {
+
         if ($user) {
             if ($user->admin) {
                 return true;
-            } else if(!$comment->post->tags->whereIn("tag",$user->admins->pluck("tag")->toArray())->isEmpty()){
+            } else if (!$comment->post->tags->whereIn("tag", $user->admins->pluck("tag")->toArray())->isEmpty()) {
                 return true;
-            }
-            else {
+            } else {
                 return $user->id == $comment->user_id;
             }
-        }else{
-          return false;
+        } else {
+            return false;
         }
     }
 
@@ -102,7 +102,7 @@ class CommentController extends Controller
      */
     public function update(Comment $post, Request $request)
     {
-     
+
         $validatedData = $request->validate([
             "comment" => "required|min:5|max:1000"
         ]);

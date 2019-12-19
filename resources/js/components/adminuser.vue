@@ -81,7 +81,6 @@ export default {
         })
         .then(response => {
           alert("saved");
-          
         })
         .catch(response => {
           this.errors = response.response.data.errors;
