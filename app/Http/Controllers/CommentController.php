@@ -66,7 +66,7 @@ class CommentController extends Controller
         $comment = strip_tags($validatedData["comment"]);
         $newComment = new Comment;
         $newComment->comment = $comment;
-        $newComment->post_id = $post;
+        $newComment->post_id = $post->id;
         $newComment->user_id = Auth::id();
         $newComment->save();
         return response($newComment, 200);

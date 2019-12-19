@@ -58,8 +58,10 @@
     </div>
     <div class="form-group">
         Tags you admin:   @foreach($user->admins as $tag)
+          <a href="{{route ("tag.mod",["tag"=>$tag->id])}}" > 
             {{ $loop->first ? '' : "," }}
             {{ $tag->tag }}
+          </a>
             @endforeach
         </div>
        <input type="submit" value="save">
