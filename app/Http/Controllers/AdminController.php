@@ -50,10 +50,9 @@ class AdminController extends Controller
     /**
      * Update a user
      */
-    public function updateUser(Request $request, $id)
+    public function updateUser(Request $request, User $user)
     {
         if (Gate::allows("admin-tasks")) {
-            $user = User::find($id);
             $data = $request->validate([
                 "name" => "required|min:5|max:1000",
                 "email" => "email",
