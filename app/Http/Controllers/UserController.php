@@ -20,7 +20,9 @@ class UserController extends Controller
         $user = Auth::user();
         return view("user/index",["title"=>"Account","user"=>$user]);
     }
-
+    /**
+     * Return the users information page
+     */
     public function perUser($user){
         $user = User::where("name",$user)->first();;
         return view("user",["title"=>$user->name,"user"=>$user]);

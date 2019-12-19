@@ -9,6 +9,9 @@ use Gate;
 
 class AdminController extends Controller
 {
+    /**
+     * Return the users in the database
+     */
     public function users()
     {
         if (Gate::allows("admin-tasks")) {
@@ -19,6 +22,9 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * Return the tags in the database
+     */
     public function tags()
     {
         if (Gate::allows("admin-tasks")) {
@@ -29,7 +35,9 @@ class AdminController extends Controller
         }
     }
 
-
+    /**
+     * Return the users information
+     */
     public function user(User $user)
     {
         if (Gate::allows("admin-tasks")) {
@@ -39,7 +47,9 @@ class AdminController extends Controller
             abort(403);
         }
     }
-
+    /**
+     * Update a user
+     */
     public function updateUser(Request $request, $id)
     {
         if (Gate::allows("admin-tasks")) {
@@ -76,7 +86,9 @@ class AdminController extends Controller
             abort(403);
         }
     }
-
+    /**
+     * Delete a user
+     */
     public function deleteUser(User $id)
     {
         if (Gate::allows("admin-tasks")) {
