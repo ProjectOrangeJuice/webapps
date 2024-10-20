@@ -17,8 +17,11 @@ class TagController extends Controller
             if($request->has("search")){
                 return view("tags",["tag"=>"hi","posts"=>""]);
             }else{
-                $tag = Tag::all()->random();
-                $posts = $tag->posts()->paginate(10);
+                $posts = [];
+                while(count($posts) === 0 ){
+                    $tag = Tag::all()->random();
+                    $posts = $tag->posts()->paginate(10);
+                }
                 return view("tags",["tag"=>$tag,"posts"=>$posts]);
             }
             
