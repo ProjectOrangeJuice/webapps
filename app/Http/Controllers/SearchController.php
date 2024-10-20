@@ -64,6 +64,7 @@ class SearchController extends Controller
             });
 
         }
+        $request->flash();
         return view("searchReturn",["posts"=>$selection]);
     }
 

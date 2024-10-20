@@ -1,7 +1,14 @@
 @extends("layouts.master")
 
 @section("content")
-<h1> {{ $tag->tag ?? "Oops!" }}</h1>
+<form class="form-group" action="/search" method="GET">
+            
+            <p>Tags: <input type="text" class="form-control" name="tags" value="{{ old('tags') }}" placeholder="Tags"></p>
+            <p>Users: <input type="text" class="form-control" name="users" value="{{ old('users') }}" placeholder="User names (comma to separate)"></p>
+            <div class="text-center">
+                <button class="btn btn-primary"><b>Search </b><i class="fa fa-search"></i></button>
+   </div>
+        </form>
 
 
 <hr>
