@@ -1986,14 +1986,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2007,13 +1999,17 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     addTag: function addTag() {
       this.tags.push({
-        "name": this.tag,
-        "approved": false
+        name: this.tag,
+        approved: false
       });
       this.tag = "";
     },
     removeTag: function removeTag($tag) {
       this.tags.splice($tag, 1);
+    },
+    fileChange: function fileChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
     }
   }
 });
@@ -37661,8 +37657,16 @@ var render = function() {
       _vm._v(" "),
       _c("h4", [_vm._v("Images")]),
       _vm._v(" "),
-      _vm._m(0),
-      _vm._v("\n\n        (foreach image)\n\n\n    ")
+      _c("div", { staticClass: "input-group mb-3" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "file" },
+          on: { change: _vm.fileChange }
+        }),
+        _vm._v(" "),
+        _vm._m(0)
+      ]),
+      _vm._v("\n(foreach image)\n    ")
     ]),
     _vm._v(" "),
     _c("button", { staticClass: "btn btn-success form-control" }, [
@@ -37681,22 +37685,12 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group mb-3" }, [
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "file", id: "exampleFormControlFile1" }
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "input-group-append" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-outline-secondary",
-            attrs: { type: "button" }
-          },
-          [_vm._v("Add")]
-        )
-      ])
+    return _c("div", { staticClass: "input-group-append" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-outline-secondary", attrs: { type: "button" } },
+        [_vm._v("Add")]
+      )
     ])
   }
 ]
