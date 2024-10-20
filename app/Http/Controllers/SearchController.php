@@ -18,8 +18,8 @@ class SearchController extends Controller
      */
     public function search(Request $request)
     {
-
-        if($request->has("users") && !$request->has("tags")){
+  
+        if($request->users != null && $request->tags == null){
             $users = explode(",",$request->users);
             //Get the user id
             $u = User::WhereIn("name",$users)->get();
@@ -29,7 +29,7 @@ class SearchController extends Controller
             }
             $selection = Post::WhereIn("user_id",$ids)->get();
 
-        }elseif($request->has("tags") && !$request->has("users")){
+        }elseif($request->tags != null && $request->users == null){
 
             $tags = explode(" ",$request->tags);
             $tagPosts = Tag::WhereIn("tag",$tags)->get();
@@ -65,7 +65,7 @@ class SearchController extends Controller
 
         }
         $request->flash();
-        return view("searchReturn",["posts"=>$selection]);
+        return view("searchReturn",["posts"=>$selection,"hideSearch"=>true]);
     }
 
 }
