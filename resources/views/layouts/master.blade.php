@@ -7,13 +7,13 @@
 
     <title>Laravel</title>
     <script src="{{ asset('js/app.js') }}" defer></script>
-     <!-- Fonts -->
-     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
- 
-     <!-- Styles -->
-     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -25,19 +25,29 @@
 <body style="height:100%">
 
 
-<nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light">
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-    
+
+                @if (!Request::is("home"))
+                <h1>Some name</h1>
+                @endif
+
             </ul>
             <div class="my-2 my-lg-0">
+                @if (!Request::is("home"))
+                <form class="form-inline">
+                    <input class="form-control" type="search" placeholder="Search tag">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </form>
+                @endif
                 @if (Route::has('login'))
                 @auth
                 <a href="{{ url('/home') }}">Home</a>
                 @else
                 <a href="{{ route('login') }}">Login</a>
-    
+
                 @if (Route::has('register'))
                 <a href="{{ route('register') }}">Register</a>
                 @endif
@@ -47,9 +57,9 @@
         </div>
     </nav>
 
-<div class="container" style="height:100%">
-@yield("content")
-</div>
+    <div class="container" style="height:100%">
+        @yield("content")
+    </div>
 
 
 
