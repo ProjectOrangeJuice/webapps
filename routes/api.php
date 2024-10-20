@@ -19,6 +19,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get("/comments/{post}", function($post){
-    return App\Comment::where("post_id",$post)->orderBy('created_at','DESC')->paginate(10);
+    $comments = App\Comment::with(["user" => function ($query) {
+        $query->select('name',"id");
+    }])->where("post_id",$post)->orderBy('created_at', 'desc')->paginate(5);
+   return $comments;
 });
 
