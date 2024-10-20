@@ -13,7 +13,29 @@ class CommentController extends Controller
     public function __construct()
     {
 
-        $this->middleware('auth');
+        $this->middleware('auth')->except(["fromPost"]);
+    }
+
+    public function fromPost(Post $post, Request $request)
+    {
+        $comments = Comment::with(["user" => function ($query) {
+            $query->select('name', "id");
+        }])->where("post_id", $post->id)->orderBy('created_at', 'desc')->paginate(5);
+        foreach ($comments as $comment) {
+            //We don't use the auth middleware, so we have to get the user this way
+            //so we can't use the gates
+            $user = $request->user('api');
+            if ($user) {
+                if ($user->admin) {
+                    $comment->canEdit = true;
+                } else {
+                    $comment->canEdit = $user->id == $comment->user_id;
+                }
+            }else{
+                $comment->canEdit = false;
+            }
+        }
+        return $comments;
     }
 
     /**
@@ -50,11 +72,11 @@ class CommentController extends Controller
     public function destroy($id)
     {
         $comment = Comment::find($id);
-      
 
-        if (Gate::allows("edit-comment",$comment)) {
+
+        if (Gate::allows("edit-comment", $comment)) {
             //get the comment
-           
+
             $comment->delete();
         } else {
             abort(403);

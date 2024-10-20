@@ -17,7 +17,7 @@
       <h4>{{ comment.user.name }} says</h4>
       <p>{{ comment.comment }}</p>
       <p><i>Posted at {{comment.created_at }}</i></p>
-      <button v-if="user == comment.user_id" @click="deleteComment(comment.id)" class="btn btn-danger">Delete this</button>
+      <button v-if="comment.canEdit" @click="deleteComment(comment.id)" class="btn btn-danger">Delete this</button>
     </div>
 
     <button v-for="num in comments.last_page" :key="num" @click="moveComments(num)">
