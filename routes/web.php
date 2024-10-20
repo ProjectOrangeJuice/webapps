@@ -13,10 +13,10 @@
 
 Route::get('/', function () {
     return view('search');
-});
+})->name("home");
 
 Route::get('/tags', "TagController@index");
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home2');
