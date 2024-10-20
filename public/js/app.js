@@ -1979,7 +1979,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      title: "",
+      tag: "",
+      tags: [],
+      content: "",
+      images: []
+    };
+  },
+  methods: {
+    addTag: function addTag() {
+      this.tags.push({
+        "name": this.tag,
+        "approved": false
+      });
+      this.tag = "";
+    },
+    removeTag: function removeTag($tag) {
+      this.tags.splice($tag, 1);
+    }
+  }
+});
 
 /***/ }),
 
@@ -37500,77 +37537,165 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("h1", [_vm._v("Edit post")]),
+    _vm._v(" "),
+    _c("div", [
+      _c("h3", [_vm._v("Title")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.title,
+            expression: "title"
+          }
+        ],
+        staticClass: "form-control",
+        attrs: { type: "text", name: "title" },
+        domProps: { value: _vm.title },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.title = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("h4", [_vm._v("Tags")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "input-group mb-3" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.tag,
+              expression: "tag"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { type: "text" },
+          domProps: { value: _vm.tag },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.tag = $event.target.value
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "input-group-append" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-outline-secondary",
+              attrs: { type: "button" },
+              on: { click: _vm.addTag }
+            },
+            [_vm._v("Add")]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "row" },
+        _vm._l(_vm.tags, function(t) {
+          return _c("div", { staticClass: "col-" }, [
+            !t.approved
+              ? _c("div", { staticClass: "rounded border border-danger" }, [
+                  _c("b", [_vm._v(_vm._s(t.name))]),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger",
+                      on: {
+                        click: function($event) {
+                          return _vm.removeTag(t)
+                        }
+                      }
+                    },
+                    [_vm._v("X")]
+                  )
+                ])
+              : _c("div", { staticClass: "rounded border border-success" }, [
+                  _c("b", [_vm._v(_vm._s(t.name))]),
+                  _vm._v(" "),
+                  _c("button", { staticClass: "btn btn-danger" }, [_vm._v("X")])
+                ])
+          ])
+        }),
+        0
+      ),
+      _vm._v(" "),
+      _c("h4", [_vm._v("Content")]),
+      _vm._v(" "),
+      _c("textarea", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.content,
+            expression: "content"
+          }
+        ],
+        staticClass: "form-control",
+        attrs: { rows: "10" },
+        domProps: { value: _vm.content },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.content = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("h4", [_vm._v("Images")]),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v("\n\n        (foreach image)\n\n\n    ")
+    ]),
+    _vm._v(" "),
+    _c("button", { staticClass: "btn btn-success form-control" }, [
+      _vm._v("Save")
+    ]),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c("button", { staticClass: "btn btn-danger form-control" }, [
+      _vm._v("Delete")
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("h1", [_vm._v("Edit post")]),
+    return _c("div", { staticClass: "input-group mb-3" }, [
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { type: "file", id: "exampleFormControlFile1" }
+      }),
       _vm._v(" "),
-      _c("div", [
-        _c("h3", [_vm._v("Title")]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { type: "text", name: "title" }
-        }),
-        _vm._v(" "),
-        _c("h4", [_vm._v("Tags")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "input-group mb-3" }, [
-          _c("input", { staticClass: "form-control", attrs: { type: "text" } }),
-          _vm._v(" "),
-          _c("div", { staticClass: "input-group-append" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-outline-secondary",
-                attrs: { type: "button" }
-              },
-              [_vm._v("Add")]
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", [_vm._v("(foreach tag)")]),
-        _vm._v(" "),
-        _c("h4", [_vm._v("Content")]),
-        _vm._v(" "),
-        _c("textarea", { staticClass: "form-control", attrs: { rows: "10" } }),
-        _vm._v(" "),
-        _c("h4", [_vm._v("Images")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "input-group mb-3" }, [
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { type: "file", id: "exampleFormControlFile1" }
-          }),
-          _vm._v(" "),
-          _c("div", { staticClass: "input-group-append" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-outline-secondary",
-                attrs: { type: "button" }
-              },
-              [_vm._v("Add")]
-            )
-          ])
-        ]),
-        _vm._v("\n\n        (foreach image)\n\n\n    ")
-      ]),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-success form-control" }, [
-        _vm._v("Save")
-      ]),
-      _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-danger form-control" }, [
-        _vm._v("Delete")
+      _c("div", { staticClass: "input-group-append" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-outline-secondary",
+            attrs: { type: "button" }
+          },
+          [_vm._v("Add")]
+        )
       ])
     ])
   }
