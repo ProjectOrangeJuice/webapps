@@ -1864,6 +1864,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1892,20 +1895,30 @@ __webpack_require__.r(__webpack_exports__);
         _this2.commentBox = "Your comment has been saved!";
         _this2.errors = [];
 
-        if (_this2.pageNumber() == 1) {
-          axios.get("/api/comments/1").then(function (response) {
-            _this2.comments = response.data;
-          })["catch"](function (response) {});
-        }
+        _this2.moveComments(_this2.pageNumber);
       })["catch"](function (response) {
         _this2.errors = response.response.data.errors["comment"];
       });
     },
-    moveComments: function moveComments(num) {
+    deleteComment: function deleteComment(id) {
       var _this3 = this;
 
+      axios["delete"]("/comment/" + id).then(function (response) {
+        _this3.moveComments(_this3.pageNumber());
+
+        _this3.errors = [];
+      })["catch"](function (response) {
+        if (response.response.status == 403) {
+          //the user doesn't own this comment!
+          _this3.errors = ["You don't own this comment. You can't delete it"];
+        }
+      });
+    },
+    moveComments: function moveComments(num) {
+      var _this4 = this;
+
       axios.get("/api/comments/1?page=" + num).then(function (response) {
-        _this3.comments = response.data;
+        _this4.comments = response.data;
       })["catch"](function (response) {
         console.log("Error " + response);
       });
@@ -37314,48 +37327,51 @@ var render = function() {
     "div",
     [
       _vm.user > -1
-        ? _c(
-            "div",
-            [
-              _c("h4", [_vm._v("Write a comment")]),
-              _vm._v(" "),
-              _vm._l(_vm.errors, function(error) {
-                return _c("li", [_vm._v(_vm._s(error))])
-              }),
-              _vm._v(" "),
-              _c("textarea", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.commentBox,
-                    expression: "commentBox"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { rows: "4" },
-                domProps: { value: _vm.commentBox },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.commentBox = $event.target.value
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "button",
+        ? _c("div", [
+            _c("h4", [_vm._v("Write a comment")]),
+            _vm._v(" "),
+            _vm.errors.length > 0
+              ? _c(
+                  "div",
+                  { staticClass: "alert alert-danger" },
+                  _vm._l(_vm.errors, function(error) {
+                    return _c("li", [_vm._v(_vm._s(error))])
+                  }),
+                  0
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _c("textarea", {
+              directives: [
                 {
-                  staticClass: "btn btn-primary",
-                  on: { click: _vm.sendComment }
-                },
-                [_vm._v("Send")]
-              )
-            ],
-            2
-          )
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.commentBox,
+                  expression: "commentBox"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { rows: "4" },
+              domProps: { value: _vm.commentBox },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.commentBox = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                on: { click: _vm.sendComment }
+              },
+              [_vm._v("Send")]
+            )
+          ])
         : _c("div", { staticClass: "alert alert-warning" }, [
             _c("a", { attrs: { href: "/login" } }, [_vm._v("Login")]),
             _vm._v(" to post a comment\n    ")
@@ -37369,7 +37385,22 @@ var render = function() {
           _vm._v(" "),
           _c("p", [
             _c("i", [_vm._v("Posted at " + _vm._s(comment.created_at))])
-          ])
+          ]),
+          _vm._v(" "),
+          _vm.user == comment.user_id
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn btn-danger",
+                  on: {
+                    click: function($event) {
+                      return _vm.deleteComment(comment.id)
+                    }
+                  }
+                },
+                [_vm._v("Delete this")]
+              )
+            : _vm._e()
         ])
       }),
       _vm._v(" "),

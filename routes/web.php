@@ -31,5 +31,4 @@ Route::get('/home', 'HomeController@index')->name('home2');
 
 
 Route::post("/comment/{post}",  "CommentController@store")->name("createComment");
-// Route::update("/comment/{post}",  "CommentController@update")->name("updateComment");
-// Route::delete("/comment/{post}",  "CommentController@destroy")->name("deleteComment");
+Route::delete("/comment/{post}",  "CommentController@destroy")->name("deleteComment");
