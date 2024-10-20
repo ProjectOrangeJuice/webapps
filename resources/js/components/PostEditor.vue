@@ -4,7 +4,9 @@
 
     <div>
       <div v-if="errors.length > 0" class="alert alert-danger">
-        <li v-for="error in errors">{{ error }}</li>
+        <li v-for="error in errors" >
+          {{error[0]}}
+          </li>
       </div>
       <h3>Title</h3>
       <input type="text" class="form-control" name="title" v-model="title" />
@@ -40,10 +42,9 @@
         <button @click="removeFile(img)">Remove</button>
       </div>
       <div v-for="img in images">
-        <img :src="'publicImg/'+ img.location ">
+        <img :src="'publicImg/'+ img.location " />
         <button @click="removeImg(img)">Remove</button>
-        </div>
-
+      </div>
     </div>
     <button class="btn btn-success form-control" @click="save">Save</button>
     <hr />
@@ -64,14 +65,15 @@ export default {
       images: [],
       errors: []
     };
-  }, mounted() {
+  },
+  mounted() {
     axios
-      .get("/postData/"+editCode)
+      .get("/postData/" + editCode)
       .then(response => {
         this.title = response.data.title;
         this.tags = response.data.tags;
         this.content = response.data.content;
-        this.images = response.data.images
+        this.images = response.data.images;
       })
       .catch(response => {
         console.log("Error " + response);
@@ -94,7 +96,7 @@ export default {
       this.uimages.splice(f, 1);
     },
     save() {
-      this.errors = []
+      this.errors = [];
       var mTag = [];
       this.tags.forEach(function(item) {
         mTag.push(item["name"]);
@@ -104,7 +106,7 @@ export default {
           title: this.title,
           tags: mTag,
           content: this.content,
-          code: editCode,
+          code: editCode
         })
         .then(response => {
           console.log(response);
@@ -125,27 +127,27 @@ export default {
                 this.errors.push(response.response.data.errors["image"]);
               });
           });
-          this.uimages = []
+          this.uimages = [];
         })
         .catch(response => {
-          response.response.data.errors.forEach(function(e){
-            this.errors.push(e);
-          });
-        
+            for(var key in response.response.data.errors){
+              this.errors.push(response.response.data.errors[key]);
+            }
+            
+         
         });
     },
     removeImage(img) {
-     
-       axios
-      .delete("/images",{
-        image: img,
-      })
-      .then(response => {
-        this.images.splice(img,1);
-      })
-      .catch(response => {
-        console.log("Error " + response);
-      });
+      axios
+        .delete("/images", {
+          image: img
+        })
+        .then(response => {
+          this.images.splice(img, 1);
+        })
+        .catch(response => {
+          console.log("Error " + response);
+        });
     }
   }
 };
