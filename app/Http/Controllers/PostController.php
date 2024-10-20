@@ -26,7 +26,7 @@ class PostController extends Controller
         $post = Post::with(["images", "tags" => function ($query) {
             $query->select('tag', "id", "confirmed");
         }])->where("id", $id)->first();
-        if($post == null){
+        if ($post == null) {
             abort(404);
         }
         return $post;
@@ -66,6 +66,8 @@ class PostController extends Controller
             $post->content = $data["content"];
             $post->user_id = Auth::id();
             $post->save();
+
+            //Now we can create the new tags
             foreach ($data["tags"] as $tag) {
                 $tag = Tag::where("tag", $tag)->first();
                 if ($tag != null) {
@@ -80,6 +82,16 @@ class PostController extends Controller
                 $post->title = $data["title"];
                 $post->content = $data["content"];
                 $post->save();
+                $curTags = $post->tags;
+                foreach ($curTags as $tag) {
+                    if (in_array($tag->tag, $data["tags"])) {
+                        //It's already a tag
+                        unset($data["tags"][array_search($tag->tag, $data["tags"])]);
+                    }else{
+                        $post->tags()->detach($tag->id);
+                    }
+                 
+                }
                 foreach ($data["tags"] as $tag) {
                     $tag = Tag::where("tag", $tag)->first();
                     if ($tag != null) {
@@ -87,7 +99,9 @@ class PostController extends Controller
                     }
                 }
 
-                return $post;
+                return Post::with(["images", "tags" => function ($query) {
+                    $query->select('tag', "id", "confirmed");
+                }])->where("id", $post->id)->first();;
             }
         }
     }
@@ -161,11 +175,12 @@ class PostController extends Controller
     }
 
 
-    public function destroy(Post $post){
+    public function destroy(Post $post)
+    {
 
-        if (Gate::allows("edit-post",$post)){
+        if (Gate::allows("edit-post", $post)) {
             //Delete the images
-            foreach($post->images as $img){
+            foreach ($post->images as $img) {
                 $path = "../public/publicImg/" . $img->location;
                 if (File::exists($path)) {
                     File::delete($path);
