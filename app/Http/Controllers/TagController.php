@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Tag;
+use App\Post;
 
 class TagController extends Controller
 {
@@ -21,7 +22,11 @@ class TagController extends Controller
                 if($tag == null){
                     return view("tags")->withErrors(["The tag $tag was not found"]);
                 }else{
-                    $posts = $tag->posts()->paginate(10)->appends(["search"=>$tag->tag]);
+                    $posts = Post::whereHas("tags" ,function($query) use ($tag){
+                        $query->where("confirmed",1);
+                        $query->where("tag_id",$tag->id);
+                    })->paginate(10)->appends(["search"=>$tag->tag]);
+
                     return view("tags",["tag"=>$tag,"posts"=>$posts]);
                 }
                 

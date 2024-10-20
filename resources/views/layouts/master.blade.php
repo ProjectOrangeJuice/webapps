@@ -35,7 +35,7 @@
 
                 @if (!Request::is("/"))
                 <a href="/">
-                <h1>Some name</h1>
+                <h1>Toogle</h1>
                 </a>
                 @endif
 
