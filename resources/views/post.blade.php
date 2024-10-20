@@ -22,7 +22,11 @@
 
 <hr>
 <h2>Comments</h2>
-
+<h4>Write a comment</h4>
+<div class="form-group">
+    <textarea class="form-control" rows="4" id="comment"></textarea>
+    <button>Send</button>
+  </div>
 @foreach($post->comments as $comment)
 <div>
 <p> {{ $comment->comment }}</p>
