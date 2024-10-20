@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('search');
+    return view('index');
 })->name("home");
 
 Route::get('/tags', "TagController@index")->name("tag.index");
