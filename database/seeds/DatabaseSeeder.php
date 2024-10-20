@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         //Posts are required before comments
         $this->call(PostsTableSeeder::class);
         $this->call(CommentsTableSeeder::class);
-        $this->call(NotepadsTableSeeder::class);
+        //$this->call(NotepadsTableSeeder::class);
     }
 
 
