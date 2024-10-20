@@ -19,9 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get("/comments/{post}", function($post){
-    return App\Comment::where("post_id",$post)->paginate(10);
+    return App\Comment::where("post_id",$post)->orderBy('created_at','DESC')->paginate(10);
 });
 
-Route::post("/comment/{post}",  "CommentController@store")->name("createComment");
-// Route::update("/comment/{post}",  "CommentController@update")->name("updateComment");
-// Route::delete("/comment/{post}",  "CommentController@destroy")->name("deleteComment");
