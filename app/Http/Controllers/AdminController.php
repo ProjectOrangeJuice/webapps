@@ -54,23 +54,24 @@ class AdminController extends Controller
             $user->email = $data["email"];
             $user->admin = $data["admin"];
             $user->save();
+            $tags = $request->tags;
             $curTags = $user->admins;
             foreach ($curTags as $tag) {
-                if (in_array($tag->tag, $request->tags)) {
+                if (in_array($tag->tag, $tags)) {
                     //It's already a tag
-                    unset($request->tags[array_search($tag->tag, $data["tags"])]);
+                    unset($tags[array_search($tag->tag, $tags)]);
                 }else{
                     $user->admins()->detach($tag->id);
                 }
              
             }
-            foreach ($request->tags as $tag) {
+            foreach ($tags as $tag) {
                 $tag = Tag::where("tag", $tag)->first();
                 if ($tag != null) {
                     $user->admins()->attach($tag);
                 }
             }
-
+            return $user;
         } else {
             abort(403);
         }

@@ -29,10 +29,10 @@
         </div>
       </div>
       <div class="row">
-        <div v-for="t in tags" class="col-">
+        <div v-for="(t,index) in tags" class="col-">
           <div class="rounded border border-success">
             <b>{{ t }}</b>
-            <button class="btn btn-danger">X</button>
+            <button class="btn btn-danger" @click="removeTag(index)">X</button>
           </div>
         </div>
       </div>
@@ -73,7 +73,7 @@ export default {
     save() {
       this.errors = [];
       axios
-        .update(userLink, {
+        .put(userLink, {
           name: this.name,
           email: this.email,
           admin: this.admin,
@@ -81,6 +81,7 @@ export default {
         })
         .then(response => {
           alert("saved");
+          
         })
         .catch(response => {
           this.errors = response.response.data.errors;
