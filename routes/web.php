@@ -11,8 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index', ["hideSearch"=>true]);
+use App\Quote\Qod;
+
+app()->singleton(Qod::class,function($app){
+    $q = new Qod();
+    $q->newQuote();
+    return $q;
+});
+
+Route::get('/', function (Qod $qod) {
+   
+    return view('index', ["hideSearch"=>true, "qod"=>$qod->getQuote()]);
 })->name("home");
 
 Route::get('/tags', "TagController@index")->name("tag.index");

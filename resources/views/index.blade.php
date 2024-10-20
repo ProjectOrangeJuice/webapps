@@ -18,5 +18,5 @@
     </div>
 </div>
 
-
+<p> {{ $qod }} - From <a href="https://theysaidso.com/">theysaidso.com</a></p>
 @endsection
