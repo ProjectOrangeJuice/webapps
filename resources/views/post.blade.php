@@ -30,7 +30,7 @@
   var userId = {{ Auth::id() ?? -1 }};
   </script>
 <div id="app">
-  <post></post>
+  <comments></comments>
 </div>
 
 @endsection
