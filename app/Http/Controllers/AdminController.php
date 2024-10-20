@@ -30,10 +30,10 @@ class AdminController extends Controller
     }
 
 
-    public function user($id)
+    public function user(User $id)
     {
         if (Gate::allows("admin-tasks")) {
-            $user = User::find($id);
+            $user = $id;
             return view("admin/user", ["title"=>"User","user" => $user]);
         } else {
             abort(403);
@@ -77,10 +77,10 @@ class AdminController extends Controller
         }
     }
 
-    public function deleteUser($id)
+    public function deleteUser(User $id)
     {
         if (Gate::allows("admin-tasks")) {
-            $user = User::find($id);
+            $user =$id;
             $user->delete();
         } else {
             abort(403);

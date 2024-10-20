@@ -14,9 +14,9 @@ class PostController extends Controller
 {
 
 
-    public function perPost($id)
+    public function perPost(Post $id)
     {
-        $post = Post::find($id);
+        $post = $id;
 
         return view("post", ["title"=>$post->title,"post" => $post, "edit" => Gate::allows("edit-post", $post)]);
     }
