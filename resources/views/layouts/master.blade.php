@@ -30,13 +30,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
 
-                @if (!Request::is("home"))
+                @if (!Request::is("/"))
                 <h1>Some name</h1>
                 @endif
 
             </ul>
             <div class="my-2 my-lg-0">
-                @if (!Request::is("home"))
+                @if (!Request::is("/"))
                 <form class="form-inline" action="/tags" method="GET">
                     <input class="form-control" type="search" name="search" placeholder="Search tag">
                     <button class="btn btn-primary" type="submit">Search</button>
