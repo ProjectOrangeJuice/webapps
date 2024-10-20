@@ -15,7 +15,7 @@ export default {
   },
    mounted() {
     axios
-      .get("/api/notepad")
+      .get(notepad)
       .then(response => {
         this.notes = response.data["content"];
       })
@@ -27,7 +27,7 @@ export default {
   methods: {
     save: function() {
         axios
-      .put("/api/notepad",{
+      .put(notepad,{
           notepad: this.notes
       })
       .then(response => {
