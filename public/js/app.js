@@ -2063,7 +2063,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         console.log(response);
         _this2.tags = response.data.tags;
-        editCode = response.id;
+        editCode = response.data.id;
 
         for (var key in _this2.uimages) {
           var img = _this2.uimages[key]; //upload the images

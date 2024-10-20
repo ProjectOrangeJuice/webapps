@@ -118,8 +118,8 @@ export default {
         })
         .then(response => {
           console.log(response);
-          this.tags=response.data.tags
-          editCode = response.id;
+          this.tags=response.data.tags;
+          editCode = response.data.id;
           for(var key in this.uimages){
             var img = this.uimages[key];
     
