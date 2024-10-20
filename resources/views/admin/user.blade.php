@@ -6,6 +6,9 @@
 <script>
 var user = @json($user);
 var tagsj = @json($user->admins);
+var userLink = {{route("admin.user.update",["user"=>$user->id])}};
+var returnLink = {{ route("admin.users")}};
+
     </script>
 <div id="app">
 <adminuser><adminuser>

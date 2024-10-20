@@ -73,7 +73,7 @@ export default {
     save() {
       this.errors = [];
       axios
-        .update("/api/admin/user/" + user["id"], {
+        .update(userLink, {
           name: this.name,
           email: this.email,
           admin: this.admin,
@@ -89,9 +89,9 @@ export default {
     deleteU() {
       this.errors = [];
       axios
-        .delete("/api/admin/user/" + user["id"])
+        .delete(userLink)
         .then(response => {
-          window.location.href = '/admin/users';
+          window.location.href = returnLink;
         })
         .catch(response => {
           this.errors = response.response.data.errors;
