@@ -15,7 +15,9 @@ Route::get('/', function () {
     return view('search');
 })->name("home");
 
-Route::get('/tags', "TagController@index");
+Route::get('/tags', "TagController@index")->name("tag.index");
+
+Route::get("/post/{id}","PostController@perPost")->name("post.show");
 
 Auth::routes();
 
