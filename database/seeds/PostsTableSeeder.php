@@ -21,7 +21,10 @@ class PostsTableSeeder extends Seeder
             //Add tags to this post
             $numberOfTags = rand(1,10); //Between 1 and 10 tags
             $tags = App\Tag::get()->take($numberOfTags);
-            $post->tags()->saveMany($tags);
+            foreach($tags as $tag){
+                $post->tags()->save($tag, ["confirmed"=>true]);
+            }
+           
         });
 
     }
