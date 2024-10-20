@@ -46,3 +46,4 @@ Route::middleware('auth:api')->delete("/admin/user/{user}","AdminController@dele
 
 Route::middleware('auth:api')->post("/comment/{post}",  "CommentController@store")->name("createComment");
 Route::middleware('auth:api')->delete("/comment/{post}",  "CommentController@destroy")->name("deleteComment");
+Route::middleware('auth:api')->put("/comment/{post}",  "CommentController@update")->name("updateComment");
