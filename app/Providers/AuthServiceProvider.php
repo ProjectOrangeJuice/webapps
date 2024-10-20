@@ -26,7 +26,10 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::before(function ($user,$ability){
-            return $user->admin;
+            if($user->admin){
+                return true;
+            }
+   
         });
 
         Gate::define("admin-tasks", function($user){
@@ -53,7 +56,7 @@ class AuthServiceProvider extends ServiceProvider
     });
 
     Gate::define('edit-comment', function ($user, $comment) {
-           
+        
         return $user->comments->find($comment->id) != null;
     
 });

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Comment;
 use Auth;
-use Illuminate\Auth\Access\Gate;
+use Gate;
 
 class CommentController extends Controller
 {
@@ -49,17 +49,15 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        if(Gate::allows("edit-comment")){
-        //get the comment
         $comment = Comment::find($id);
-        if ($comment) {
-            if ($comment->user_id == Auth::id()) {
-                //same person has created it
-                $comment->delete();
-            } else {
-                return response("", 403);
-            }
+      
+
+        if (Gate::allows("edit-comment",$comment)) {
+            //get the comment
+           
+            $comment->delete();
+        } else {
+            abort(403);
         }
     }
-}
 }

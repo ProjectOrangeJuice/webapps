@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Auth;
 use Hash;
-use Illuminate\Support\Facades\Gate;
+use Gate;
 use Validator;
 class UserController extends Controller
 {
