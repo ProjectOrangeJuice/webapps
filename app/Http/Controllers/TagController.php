@@ -30,7 +30,7 @@ class TagController extends Controller
                     $query->where("tag_id", $tag->id);
                 })->paginate(10)->appends(["search" => $tag->tag]);
 
-                return view("tags", ["tag" => $tag, "posts" => $posts]);
+                return view("tags", ["title"=>"Random","tag" => $tag, "posts" => $posts]);
             }
         } else {
             $tagFound = false;
@@ -40,7 +40,7 @@ class TagController extends Controller
                     $tagFound = true;
                 }
             }
-            return redirect()->route('tag.index', ['search' => $tag->tag]);
+            return redirect()->route('tag.index', ["title"=>"Seach",'search' => $tag->tag]);
         }
     }
 
@@ -48,7 +48,7 @@ class TagController extends Controller
     {
         if (Gate::allows("edit-tag", $tag)) {
             $posts = $tag->posts->where("pivot.confirmed", false);
-            return view("admin/modTags", ["tag" => $tag, "posts" => $posts]);
+            return view("admin/modTags", ["title"=>"Tag moderation","tag" => $tag, "posts" => $posts]);
         }
     }
 

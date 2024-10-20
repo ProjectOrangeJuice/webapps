@@ -13,7 +13,7 @@ class AdminController extends Controller
     {
         if (Gate::allows("admin-tasks")) {
             $users = User::all();
-            return view("admin/users", ["users" => $users]);
+            return view("admin/users", ["title"=>"Users","users" => $users]);
         } else {
             abort(403);
         }
@@ -23,7 +23,7 @@ class AdminController extends Controller
     {
         if (Gate::allows("admin-tasks")) {
             $tags = Tag::all();
-            return view("admin/tags", ["tags" => $tags]);
+            return view("admin/tags", ["title"=>"Tags","tags" => $tags]);
         } else {
             abort(403);
         }
@@ -34,7 +34,7 @@ class AdminController extends Controller
     {
         if (Gate::allows("admin-tasks")) {
             $user = User::find($id);
-            return view("admin/user", ["user" => $user]);
+            return view("admin/user", ["title"=>"User","user" => $user]);
         } else {
             abort(403);
         }

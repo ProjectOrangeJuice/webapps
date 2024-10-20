@@ -18,12 +18,12 @@ class UserController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view("user/index",["user"=>$user]);
+        return view("user/index",["title"=>"Account","user"=>$user]);
     }
 
     public function perUser($user){
         $user = User::where("name",$user)->first();;
-        return view("user",["user"=>$user]);
+        return view("user",["title"=>$user->name,"user"=>$user]);
     }
 
     /**
