@@ -11,5 +11,9 @@ class Tag extends Model
         return $this->belongsToMany("App\Post")->withPivot("confirmed");
     }
 
+    public function admins(){
+        return $this->belongsToMany("App\User");
+    }
+
 
 }

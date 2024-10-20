@@ -21,6 +21,10 @@ class User extends Authenticatable
         return $this->hasOne("App\Notepad");
     }
 
+    public function admins(){
+        return $this->hasMany("App\Tag");
+    }
+
     public function comments()
     {
         return $this->hasMany("App\Comment");
