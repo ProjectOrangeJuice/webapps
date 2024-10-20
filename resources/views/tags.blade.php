@@ -2,7 +2,10 @@
 
 @section("content")
 <h1> {{ $tag->tag ?? "Oops!" }}</h1>
-<p>There are {{ $posts->total() ?? 0 }} results!</p>
+@if ($posts)
+<p>There are {{ $posts->total() }} results!</p> 
+@endif
+
 <hr>
 @if (count($posts ?? []) === 0)
     @if ($errors->any())
@@ -23,6 +26,8 @@
         <p> {{ count($post->comments) }} comments
         
     @endforeach
+
+    {{ $posts->links() }}
 @endif
 
 @endsection
