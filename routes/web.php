@@ -18,6 +18,7 @@ Route::get('/', function () {
 Route::get('/tags', "TagController@index")->name("tag.index");
 
 Route::get('/search', "SearchController@search")->name("search.index");
+Route::get('/logout', 'Auth\LoginController@logout');
 
 
 Route::get("/users/{user}", "UserController@perUser")->name("user.show");
