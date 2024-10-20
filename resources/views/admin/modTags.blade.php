@@ -6,8 +6,8 @@
   
 @foreach ($posts as $post)
 @foreach ($posts as $post)
-<form>
-
+<form action="/postMod/{{$post->id}}" method="POST">
+    @csrf
     <input type="hidden" value="{{$tag->tag}}" name="tag">
     <a target="_blank" href="{{ route('post.show',['id' => $post->id])}}" class="text-body">
         <div>
@@ -25,7 +25,7 @@
    
 
 <input type="submit" name="confirm" value="Confirm">
-<input type="submit" name="delete" value="Deny">
+<input type="submit" name="confirm" value="Deny">
 </form>
 @endforeach
     

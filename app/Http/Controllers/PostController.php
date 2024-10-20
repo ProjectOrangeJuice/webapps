@@ -156,9 +156,25 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+       
+        //Update the tags
+        if(Gate::allows("edit-tag",$post)){
+            $tag = $request->tag;
+            
+          
+            if($request->confirm == "Confirm"){
+                $tagToUpdate =  $post->tags->where("tag",$tag)->first();
+                $tagToUpdate->pivot->confirmed = true;
+                $tagToUpdate->pivot->save();
+            //$post->tags()->sync([$tag->id=>["confirmed"=>true]],false);
+            }else{
+                $post->tags()->detach($tag->id);
+            }
+            
+
+        }
     }
 
     /**
