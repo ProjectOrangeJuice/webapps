@@ -7,7 +7,7 @@
         <h1 class="text-center">Some name</h1>
         <form class="form-group" action="/tags" method="GET">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for a tag">
+                <input type="text" class="form-control" name="search" placeholder="Search for a tag">
                 <button class="btn btn-primary"><i class="fa fa-search"></i></button>
             </div>
         </form>
