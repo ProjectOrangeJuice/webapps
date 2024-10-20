@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Tag;
 use App\Post;
 use App\Quote\Qod;
-use Illuminate\Auth\Access\Gate;
+use Gate;
 
 class TagController extends Controller
 {

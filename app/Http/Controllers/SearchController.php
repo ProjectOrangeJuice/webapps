@@ -27,7 +27,9 @@ class SearchController extends Controller
             foreach($u as $user){
                 array_push($ids,$user->id);
             }
+           
             $selection = Post::WhereIn("user_id",$ids)->get();
+           
 
         }elseif($request->tags != null && $request->users == null){
 
@@ -41,6 +43,7 @@ class SearchController extends Controller
                     $selection = $tag->posts;
                 }
             }
+            $selection = $selection->where("pivot.confirmed");
             
             
         }else{
@@ -65,7 +68,7 @@ class SearchController extends Controller
             });
 
         }
-        $selection = $selection->where("pivot.confirmed");
+       
         $request->flash();
         return view("searchReturn",["title"=>"Full Search","posts"=>$selection,"hideSearch"=>true]);
     }

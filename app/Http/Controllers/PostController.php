@@ -74,7 +74,9 @@ class PostController extends Controller
                     $post->tags()->attach($tag);
                 }
             }
-            return $post;
+            return Post::with(["images", "tags" => function ($query) {
+                $query->select('tag', "id", "confirmed");
+            }])->where("id", $post->id)->first();;
         } else {
 
             $post = Post::find($request->code);
@@ -110,7 +112,7 @@ class PostController extends Controller
     public function imageDelete($img)
     {
 
-        $image = Image::where("location", $img);
+        $image = Image::where("location", $img)->first();
         if (Gate::allows("edit-post", $image->post)) {
             $path = "../public/publicImg/" . $img;
             if (File::exists($path)) {
@@ -157,10 +159,11 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-
+        $tag = $request->tag;
+        $t = Tag::Where("tag",$tag)->first();
         //Update the tags
-        if (Gate::allows("edit-tag", $post)) {
-            $tag = $request->tag;
+        if (Gate::allows("edit-tag", $t)) {
+            
 
 
             if ($request->confirm == "Confirm") {
@@ -171,6 +174,9 @@ class PostController extends Controller
             } else {
                 $post->tags()->detach($tag->id);
             }
+            return redirect()->back();
+        }else{
+            return response("",403);
         }
     }
 
