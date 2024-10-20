@@ -16,7 +16,7 @@ class TagController extends Controller
     {
             if($request->has("search")){
                 $tag = $request->search;
-                return view("search")->withErrors(["$tag not found"]);
+                return view("tags")->withErrors(["The tag $tag was not found"]);
             }else{
                 $posts = [];
                 while(count($posts) === 0 ){
