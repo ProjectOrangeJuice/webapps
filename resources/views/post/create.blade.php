@@ -1,21 +1,39 @@
 @extends("layouts.master")
 
-
 @section("content")
-<div class="h-75 row align-items-center">
-    <div class="col">
-        <h1 class="text-center">Some name</h1>
-        <form class="form-group" action="/tags" method="GET">
-            <div class="input-group">
-                <input type="text" class="form-control" name="search" placeholder="Search for a tag">
-                <button class="btn btn-primary"><i class="fa fa-search"></i></button>
+
+
+<div>
+
+    <h1>Edit post</h1>
+
+    <div>
+        <h3>Title</h3>
+        <input type="text" class="form-control" name="title">
+        <h4>Tags</h4>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Add</button>
             </div>
-        </form>
-        <p class="text-center"><a href="/tags">Or pick something random</a></p>
-        <p class="text-center"><a href="/search">Full search</a></p>
+        </div>
+        <div>(foreach tag)</div>
+        <h4>Content</h4>
+        <textarea class="form-control" rows=10></textarea>
+        <h4>Images</h4>
+        <div class="input-group mb-3">
+            <input type="file" class="form-control" id="exampleFormControlFile1">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Add</button>
+            </div>
+        </div>
+
+        (foreach image)
+
 
     </div>
-</div>
-
+    <button class="btn btn-success form-control">Save</button>
+    <hr>
+    <button class="btn btn-danger form-control">Delete</button>
 
 @endsection
