@@ -37,6 +37,9 @@
 <script>
   var urlToSend = "{{route('createComment',$post->id)}}";
   var userId = {{ Auth::id() ?? -1 }};
+  var  loginLink="{{route("login")}}";
+  var commentsLink="{{route("comments",["post"=>$post->id])}}";
+  var  commentLink="/api/comment/";
   </script>
 <div id="app">
   <comments></comments>
