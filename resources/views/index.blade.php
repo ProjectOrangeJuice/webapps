@@ -12,8 +12,8 @@
                 <button class="btn btn-primary"><i class="fa fa-search"></i></button>
             </div>
         </form>
-        <p class="text-center"><a href="/tags">Or pick something random</a></p>
-        <p class="text-center"><a href="/search">Full search</a></p>
+        <p class="text-center"><a href="{{ route("tag.index") }}">Or pick something random</a></p>
+        <p class="text-center"><a href="{{ route("search.index") }}">Full search</a></p>
 
     </div>
 </div>

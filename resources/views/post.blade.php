@@ -19,7 +19,7 @@
 <p>Date: {{ $post->created_at }}</p>
 
 @if ($edit)
-    <a href="/post?post={{$post->id}}"> Edit this post</a>
+    <a href="{{ route("post.create", ["post"=>$post->id]) }}"> Edit this post</a>
 @endif
 
 </div>

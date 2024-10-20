@@ -14,7 +14,7 @@
                 <button class="btn btn-primary"><b>Search </b><i class="fa fa-search"></i></button>
    </div>
         </form>
-        <p class="text-center"><a href="/">Tag search</a></p>
+        <p class="text-center"><a href="{{ route("home") }}">Tag search</a></p>
 
     </div>
 </div>
