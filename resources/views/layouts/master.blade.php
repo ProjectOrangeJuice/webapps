@@ -17,6 +17,28 @@
 <body style="height:100%">
 
 
+<nav class="navbar navbar-expand-lg navbar-light">
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+    
+            </ul>
+            <div class="my-2 my-lg-0">
+                @if (Route::has('login'))
+                @auth
+                <a href="{{ url('/home') }}">Home</a>
+                @else
+                <a href="{{ route('login') }}">Login</a>
+    
+                @if (Route::has('register'))
+                <a href="{{ route('register') }}">Register</a>
+                @endif
+                @endauth
+                @endif
+            </div>
+        </div>
+    </nav>
+
 <div class="container" style="height:100%">
 @yield("content")
 </div>
