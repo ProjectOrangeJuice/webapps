@@ -18,6 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::get("/posts", function(){
-    return App\Post::paginate();
+Route::get("/comments/{post}", function($post){
+    return App\Comment::where("post_id",$post)->paginate(10);
 });
