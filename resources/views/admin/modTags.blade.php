@@ -6,7 +6,7 @@
   
 @foreach ($posts as $post)
 @foreach ($posts as $post)
-<form action="/postMod/{{$post->id}}" method="POST">
+<form action="{{ route("post.mod",["post"=>$post->id])}}" method="POST">
     @csrf
     <input type="hidden" value="{{$tag->tag}}" name="tag">
     <a target="_blank" href="{{ route('post.show',['id' => $post->id])}}" class="text-body">
