@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h3>Your notepad!</h3>
+    <h3>Your notepad!</h3>
     <textarea class="form-control" rows="10" v-model="notes"></textarea>
     <button @click="save">Save</button>
   </div>
@@ -13,7 +13,7 @@ export default {
       notes: ""
     };
   },
-   mounted() {
+  mounted() {
     axios
       .get(notepad)
       .then(response => {
@@ -22,21 +22,19 @@ export default {
       .catch(response => {
         console.log("Error " + response);
       });
-
   },
   methods: {
     save: function() {
-        axios
-      .put(notepad,{
+      axios
+        .put(notepad, {
           notepad: this.notes
-      })
-      .then(response => {
-       console.log(response);
-      })
-      .catch(response => {
-        console.log("Error " + response);
-      });
-
+        })
+        .then(response => {
+          console.log(response);
+        })
+        .catch(response => {
+          console.log("Error " + response);
+        });
     }
   }
 };

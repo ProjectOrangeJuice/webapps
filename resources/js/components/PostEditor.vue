@@ -4,9 +4,7 @@
 
     <div>
       <div v-if="errors.length > 0" class="alert alert-danger">
-        <li v-for="error in errors" >
-          {{error[0]}}
-          </li>
+        <li v-for="error in errors">{{error[0]}}</li>
       </div>
       <h3>Title</h3>
       <input type="text" class="form-control" name="title" v-model="title" />
@@ -18,7 +16,6 @@
         </div>
       </div>
       <div class="row">
-       
         <div v-for="(t,index) in tags" class="col-">
           <div v-if="!t.confirmed" class="rounded border border-danger">
             <b>{{ t.tag }}</b>
@@ -26,7 +23,7 @@
           </div>
 
           <div v-else class="rounded border border-success">
-            <b>{{ t.tag }}</b> 
+            <b>{{ t.tag }}</b>
             <button class="btn btn-danger" @click="removeTag(index)">X</button>
           </div>
         </div>
@@ -68,23 +65,23 @@ export default {
     };
   },
   mounted() {
-    if(editCode != -1){
-    axios
-      .get("/api/postData/" + editCode)
-      .then(response => {
-        this.title = response.data.title;
-        this.tags = response.data.tags;
-        this.content = response.data.content;
-        this.images = response.data.images;
-      })
-      .catch(response => {
-        console.log("Error " + response);
-        if(response.response.status == 401){
+    if (editCode != -1) {
+      axios
+        .get("/api/postData/" + editCode)
+        .then(response => {
+          this.title = response.data.title;
+          this.tags = response.data.tags;
+          this.content = response.data.content;
+          this.images = response.data.images;
+        })
+        .catch(response => {
+          console.log("Error " + response);
+          if (response.response.status == 401) {
             alert("You need to login!");
-          }else if(response.response.status == 404){
-             window.location = "/";
+          } else if (response.response.status == 404) {
+            window.location = "/";
           }
-      });
+        });
     }
   },
   methods: {
@@ -118,52 +115,49 @@ export default {
         })
         .then(response => {
           console.log(response);
-          this.tags=response.data.tags;
+          this.tags = response.data.tags;
           editCode = response.data.id;
-          for(var key in this.uimages){
+          for (var key in this.uimages) {
             var img = this.uimages[key];
-    
-          
+
             //upload the images
             let form = new FormData();
 
             form.append("image", img);
             form.append("post", response.data.id);
-           
+
             axios
               .post(imagesLink, form)
-              .then(function(response) {
-               
-                this.images.push(response.data);
-
-              }.bind(this))
+              .then(
+                function(response) {
+                  this.images.push(response.data);
+                }.bind(this)
+              )
               .catch(function(response) {
-                console.log("error2 "+response);
+                console.log("error2 " + response);
                 this.errors.push(response.response.data.errors["image"]);
               });
           }
           this.uimages = [];
         })
         .catch(response => {
-            console.log("error "+response);
-            if(response.response.status == 401){
+          console.log("error " + response);
+          if (response.response.status == 401) {
             alert("You need to login!");
           }
-            for(var key in response.response.data.errors){
-              this.errors.push(response.response.data.errors[key]);
-            }
-            
-         
+          for (var key in response.response.data.errors) {
+            this.errors.push(response.response.data.errors[key]);
+          }
         });
     },
     removeImg(img) {
       axios
-        .delete("/api/image/"+img.location)
+        .delete("/api/image/" + img.location)
         .then(response => {
           this.images.splice(img, 1);
         })
         .catch(response => {
-          if(response.response.status == 401){
+          if (response.response.status == 401) {
             alert("You need to login!");
           }
           console.log("Error " + response);
@@ -171,12 +165,12 @@ export default {
     },
     deletePost() {
       axios
-        .delete("/api/post/"+editCode)
+        .delete("/api/post/" + editCode)
         .then(response => {
-         window.location = "/";
+          window.location = "/";
         })
         .catch(response => {
-          if(response.response.status == 401){
+          if (response.response.status == 401) {
             alert("You need to login!");
           }
           console.log("Error " + response);

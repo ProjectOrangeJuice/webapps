@@ -30,7 +30,7 @@ class TagController extends Controller
                     $query->where("tag_id", $tag->id);
                 })->paginate(10)->appends(["search" => $tag->tag]);
 
-                return view("tags", ["title"=>$tag->tag,"tag" => $tag, "posts" => $posts]);
+                return view("tags", ["title" => $tag->tag, "tag" => $tag, "posts" => $posts]);
             }
         } else {
             $tagFound = false;
@@ -51,7 +51,7 @@ class TagController extends Controller
     {
         if (Gate::allows("edit-tag", $tag)) {
             $posts = $tag->posts->where("pivot.confirmed", false);
-            return view("admin/modTags", ["title"=>"Tag moderation","tag" => $tag, "posts" => $posts]);
+            return view("admin/modTags", ["title" => "Tag moderation", "tag" => $tag, "posts" => $posts]);
         }
     }
 

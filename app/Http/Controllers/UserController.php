@@ -8,6 +8,7 @@ use Auth;
 use Hash;
 use Gate;
 use Validator;
+
 class UserController extends Controller
 {
     /**
@@ -18,14 +19,15 @@ class UserController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view("user/index",["title"=>"Account","user"=>$user]);
+        return view("user/index", ["title" => "Account", "user" => $user]);
     }
     /**
      * Return the users information page
      */
-    public function perUser($user){
-        $user = User::where("name",$user)->first();;
-        return view("user",["title"=>$user->name,"user"=>$user]);
+    public function perUser($user)
+    {
+        $user = User::where("name", $user)->first();;
+        return view("user", ["title" => $user->name, "user" => $user]);
     }
 
     /**
@@ -39,30 +41,27 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $data = $request->validate([
-            "password"=> 'required|min:5|max:100',
-            "email"=>"required|email",
+            "password" => 'required|min:5|max:100',
+            "email" => "required|email",
         ]);
-        if($request["new-password"] != ""){
-        $np = Hash::make($request["new-password"]);
-        }else{
+        if ($request["new-password"] != "") {
+            $np = Hash::make($request["new-password"]);
+        } else {
             $np = "nah";
         }
-        if(Gate::allows("edit-user",$user)){
-            if(!Hash::check($data["password"],$user->password)){
+        if (Gate::allows("edit-user", $user)) {
+            if (!Hash::check($data["password"], $user->password)) {
                 return back()->withErrors("Password doesn't match");
-               
-            }else{
-                if($np != "nah"){
+            } else {
+                if ($np != "nah") {
                     $user->password = $np;
                 }
                 $user->email = $data["email"];
                 $user->save();
                 return redirect()->back();
             }
-        }else{
-            return response("",403);
+        } else {
+            return response("", 403);
         }
-
     }
-
 }
