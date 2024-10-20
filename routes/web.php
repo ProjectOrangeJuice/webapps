@@ -24,6 +24,7 @@ Route::get('/logout', 'Auth\LoginController@logout');
 Route::get("/users/{user}", "UserController@perUser")->name("user.show");
 
 Route::get("/post/{id}","PostController@perPost")->name("post.show");
+Route::get("/postData/{id}","PostController@data");
 
 Auth::routes();
 

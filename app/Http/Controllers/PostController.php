@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Tag;
 use Auth;
+use File;
 use App\Image;
 class PostController extends Controller
 {
@@ -26,14 +27,24 @@ class PostController extends Controller
         return view("post",["post"=>$post]);
     } 
 
+    public function data($id){
+        $post = Post::with(["tags","images"])->find($id);
+
+        return $post;
+    } 
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view("post/create");
+        if($request->has("post")){
+        return view("post/create",["post"=> $request->post]);
+        }else{
+            return view("post/create",["post"=> -1]);
+        }
     }
 
     /**
@@ -50,7 +61,7 @@ class PostController extends Controller
             "content"=>"required|min:5",
             "tags"=>"required",
         ]);
-            
+        if($request->code == -1){
         $post = new Post;
         $post->title = $data["title"];
         $post->content = $data["content"];
@@ -62,10 +73,32 @@ class PostController extends Controller
                 $post->tags()->attach($tag);
             }
         }
-        
         return $post;
+    }else{
+        $post = Post::find($request->code);
+        $post->title = $data["title"];
+        $post->content = $data["content"];
+        $post->save();
+        foreach($data["tags"] as $tag){
+            $tag = Tag::where("tag",$tag)->first();
+            if($tag != null){
+                $post->tags()->attach($tag);
+            }
+        }
+        return $post;
+
+    }
     }
 
+
+    public function imageDelete(Request $request){
+        $image = Image::where("location",$request->image);
+        $path = "../public/publicImg/"+$request->image;
+        if(File::exists($path)) {
+            File::delete($path);
+            $image->delete();
+        }
+    }
 
     public function imageUpload(Request $request){
         request()->validate([

@@ -3,6 +3,9 @@
     <h1>Edit post</h1>
 
     <div>
+      <div v-if="errors.length > 0" class="alert alert-danger">
+        <li v-for="error in errors">{{ error }}</li>
+      </div>
       <h3>Title</h3>
       <input type="text" class="form-control" name="title" v-model="title" />
       <h4>Tags</h4>
@@ -36,6 +39,11 @@
         {{ img.name }}
         <button @click="removeFile(img)">Remove</button>
       </div>
+      <div v-for="img in images">
+        <img :src="'publicImg/'+ img.location ">
+        <button @click="removeImg(img)">Remove</button>
+        </div>
+
     </div>
     <button class="btn btn-success form-control" @click="save">Save</button>
     <hr />
@@ -53,8 +61,21 @@ export default {
       tags: [],
       content: "",
       uimages: [],
+      images: [],
       errors: []
     };
+  }, mounted() {
+    axios
+      .get("/postData/"+editCode)
+      .then(response => {
+        this.title = response.data.title;
+        this.tags = response.data.tags;
+        this.content = response.data.content;
+        this.images = response.data.images
+      })
+      .catch(response => {
+        console.log("Error " + response);
+      });
   },
   methods: {
     addTag: function() {
@@ -73,6 +94,7 @@ export default {
       this.uimages.splice(f, 1);
     },
     save() {
+      this.errors = []
       var mTag = [];
       this.tags.forEach(function(item) {
         mTag.push(item["name"]);
@@ -81,31 +103,49 @@ export default {
         .post("/post", {
           title: this.title,
           tags: mTag,
-          content: this.content
+          content: this.content,
+          code: editCode,
         })
         .then(response => {
           console.log(response);
+          editCode = response.id;
           this.uimages.forEach(function(img) {
             //upload the images
             let form = new FormData();
 
             form.append("image", img);
-            form.append("post",response.data.id);
+            form.append("post", response.data.id);
 
             axios
               .post("/images", form)
               .then(function(response) {
-                this.uimages.splice(img,1);
+                this.images.push(response.data.location);
               })
               .catch(function(response) {
-                 this.errors = response.response.data.errors["image"];
+                this.errors.push(response.response.data.errors["image"]);
               });
           });
+          this.uimages = []
         })
         .catch(response => {
-          console.log("error");
-          console.log(response);
+          response.response.data.errors.forEach(function(e){
+            this.errors.push(e);
+          });
+        
         });
+    },
+    removeImage(img) {
+     
+       axios
+      .delete("/images",{
+        image: img,
+      })
+      .then(response => {
+        this.images.splice(img,1);
+      })
+      .catch(response => {
+        console.log("Error " + response);
+      });
     }
   }
 };
