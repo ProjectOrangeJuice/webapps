@@ -6,7 +6,7 @@
 <h1>Your account</h1>
 <div class="row">
 
-<div class="col-8">
+<div class="col-7">
 <h2>Your posts</h2>
 
 @foreach ($user->posts as $post)
@@ -28,7 +28,22 @@
 </div>
 
 <div class="col-">
-    <form action="POST" method="">
+    
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        Errors! 
+        <ul>
+            @foreach ($errors->all() as $error)
+            
+            <li> {{ $error }}</li>
+            @endforeach
+            
+
+        </ul>
+    </div>
+    @endif
+    <form method="POST" action="/account">
+        @csrf
         <div class="form-group">
             Username: {{$user->name}}
           </div>
@@ -36,7 +51,7 @@
         Current password: <input type="password" name="password">
     </div>
         <div class="form-group">
-        New password: <input type="password" name="np">
+        New password: <input type="password" name="new-password">
     </div>
     <div class="form-group">
         Email: <input type="text" name="email" value="{{$user->email}}">
@@ -47,7 +62,7 @@
             {{ $tag->tag }}
             @endforeach
         </div>
-       
+       <input type="submit" value="save">
     </form>
 </div>
 
