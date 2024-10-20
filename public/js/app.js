@@ -2012,13 +2012,17 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     if (editCode != -1) {
-      axios.get("/postData/" + editCode).then(function (response) {
+      axios.get("/api/postData/" + editCode).then(function (response) {
         _this.title = response.data.title;
         _this.tags = response.data.tags;
         _this.content = response.data.content;
         _this.images = response.data.images;
       })["catch"](function (response) {
         console.log("Error " + response);
+
+        if (response.response.status == 401) {
+          alert("You need to login!");
+        }
       });
     }
   },
@@ -2049,7 +2053,7 @@ __webpack_require__.r(__webpack_exports__);
       this.tags.forEach(function (item) {
         mTag.push(item["tag"]);
       });
-      axios.post("/post", {
+      axios.post("api/post", {
         title: this.title,
         tags: mTag,
         content: this.content,
@@ -2076,6 +2080,10 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (response) {
         console.log("error " + response);
 
+        if (response.response.status == 401) {
+          alert("You need to login!");
+        }
+
         for (var key in response.response.data.errors) {
           _this2.errors.push(response.response.data.errors[key]);
         }
@@ -2087,6 +2095,10 @@ __webpack_require__.r(__webpack_exports__);
       axios["delete"]("/image/" + img.location).then(function (response) {
         _this3.images.splice(img, 1);
       })["catch"](function (response) {
+        if (response.response.status == 401) {
+          alert("You need to login!");
+        }
+
         console.log("Error " + response);
       });
     }

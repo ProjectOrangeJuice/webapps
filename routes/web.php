@@ -27,13 +27,13 @@ Route::get('/', function (Qod $qod) {
 Route::get('/tags', "TagController@index")->name("tag.index");
 
 Route::get('/search', "SearchController@search")->name("search.index");
-Route::get('/logout', 'Auth\LoginController@logout');
+Route::get('/logout', 'Auth\LoginController@logout')->name("logout");
 
 
 Route::get("/users/{user}", "UserController@perUser")->name("user.show");
 
 Route::get("/post/{id}","PostController@perPost")->name("post.show");
-Route::get("/postData/{id}","PostController@data");
+
 
 Auth::routes();
 
@@ -41,7 +41,7 @@ Route::get('/home', 'HomeController@index')->name('home2');
 
 Route::get("/post","PostController@create");
 
-Route::post("/post","PostController@store");
+
 
 Route::post("/images","PostController@imageUpload");
 Route::delete("/image/{img}","PostController@imageDelete");

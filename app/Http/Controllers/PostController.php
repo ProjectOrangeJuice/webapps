@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Gate;
 use App\Image;
 class PostController extends Controller
 {
+
+ 
+
     /**
      * Display a listing of the resource.
      *

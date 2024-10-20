@@ -70,7 +70,7 @@ export default {
   mounted() {
     if(editCode != -1){
     axios
-      .get("/postData/" + editCode)
+      .get("/api/postData/" + editCode)
       .then(response => {
         this.title = response.data.title;
         this.tags = response.data.tags;
@@ -79,6 +79,9 @@ export default {
       })
       .catch(response => {
         console.log("Error " + response);
+        if(response.response.status == 401){
+            alert("You need to login!");
+          }
       });
     }
   },
@@ -105,7 +108,7 @@ export default {
         mTag.push(item["tag"]);
       });
       axios
-        .post("/post", {
+        .post("api/post", {
           title: this.title,
           tags: mTag,
           content: this.content,
@@ -140,6 +143,9 @@ export default {
         })
         .catch(response => {
             console.log("error "+response);
+            if(response.response.status == 401){
+            alert("You need to login!");
+          }
             for(var key in response.response.data.errors){
               this.errors.push(response.response.data.errors[key]);
             }
@@ -154,6 +160,9 @@ export default {
           this.images.splice(img, 1);
         })
         .catch(response => {
+          if(response.response.status == 401){
+            alert("You need to login!");
+          }
           console.log("Error " + response);
         });
     }
