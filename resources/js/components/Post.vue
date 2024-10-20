@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="login == 1">
+    <div v-if="user > -1">
     <h4>Write a comment</h4>
     <li v-for="error in errors">{{ error }}</li>
     <textarea class="form-control" rows="4" v-model="commentBox"></textarea>
@@ -31,7 +31,7 @@ export default {
       comments: [],
       commentBox: "",
       errors: [],
-      login: amILoggedIn,
+      user: userId,
     };
   },
   mounted() {

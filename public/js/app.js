@@ -1870,7 +1870,7 @@ __webpack_require__.r(__webpack_exports__);
       comments: [],
       commentBox: "",
       errors: [],
-      login: amILoggedIn
+      user: userId
     };
   },
   mounted: function mounted() {
@@ -37313,7 +37313,7 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm.login == 1
+      _vm.user > -1
         ? _c(
             "div",
             [
