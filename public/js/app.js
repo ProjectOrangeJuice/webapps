@@ -1985,7 +1985,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2010,6 +2009,22 @@ __webpack_require__.r(__webpack_exports__);
     fileChange: function fileChange(e) {
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
+    },
+    save: function save() {
+      var mTag = [];
+      this.tags.forEach(function (item) {
+        mTag.push(item["name"]);
+      });
+      axios.post("/post", {
+        title: this.title,
+        tags: mTag,
+        content: this.content
+      }).then(function (response) {
+        console.log(response);
+      })["catch"](function (response) {
+        console.log("error");
+        console.log(response);
+      });
     }
   }
 });
@@ -37666,12 +37681,14 @@ var render = function() {
         _vm._v(" "),
         _vm._m(0)
       ]),
-      _vm._v("\n(foreach image)\n    ")
+      _vm._v("(foreach image)\n  ")
     ]),
     _vm._v(" "),
-    _c("button", { staticClass: "btn btn-success form-control" }, [
-      _vm._v("Save")
-    ]),
+    _c(
+      "button",
+      { staticClass: "btn btn-success form-control", on: { click: _vm.save } },
+      [_vm._v("Save")]
+    ),
     _vm._v(" "),
     _c("hr"),
     _vm._v(" "),

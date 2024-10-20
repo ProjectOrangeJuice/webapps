@@ -34,10 +34,9 @@
         <div class="input-group-append">
           <button class="btn btn-outline-secondary" type="button">Add</button>
         </div>
-      </div>
-(foreach image)
+      </div>(foreach image)
     </div>
-    <button class="btn btn-success form-control">Save</button>
+    <button class="btn btn-success form-control" @click="save">Save</button>
     <hr />
     <button class="btn btn-danger form-control">Delete</button>
   </div>
@@ -66,6 +65,26 @@ export default {
     fileChange(e) {
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
+    },
+    save() {
+      var mTag = []
+      this.tags.forEach(function(item){
+        mTag.push(item["name"]);
+      });
+      axios
+        .post("/post", {
+          title: this.title,
+          tags: mTag,
+          content: this.content
+
+        })
+        .then(response => {
+         console.log(response);
+        })
+        .catch(response => {
+         console.log("error");
+         console.log(response);
+        });
     }
   }
 };
