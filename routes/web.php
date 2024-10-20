@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('search');
 });
 
+Route::get('/tags', "TagController@index");
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
