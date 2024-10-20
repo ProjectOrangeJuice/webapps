@@ -110,7 +110,7 @@ export default {
         mTag.push(item["tag"]);
       });
       axios
-        .post("api/post", {
+        .post(postLink, {
           title: this.title,
           tags: mTag,
           content: this.content,
@@ -130,7 +130,7 @@ export default {
             form.append("post", response.data.id);
            
             axios
-              .post("/api/images", form)
+              .post(imagesLink, form)
               .then(function(response) {
                
                 this.images.push(response.data);

@@ -2055,7 +2055,7 @@ __webpack_require__.r(__webpack_exports__);
       this.tags.forEach(function (item) {
         mTag.push(item["tag"]);
       });
-      axios.post("api/post", {
+      axios.post(postLink, {
         title: this.title,
         tags: mTag,
         content: this.content,
@@ -2070,7 +2070,7 @@ __webpack_require__.r(__webpack_exports__);
           var form = new FormData();
           form.append("image", img);
           form.append("post", response.data.id);
-          axios.post("/api/images", form).then(function (response) {
+          axios.post(imagesLink, form).then(function (response) {
             this.images.push(response.data);
           }.bind(_this2))["catch"](function (response) {
             console.log("error2 " + response);
