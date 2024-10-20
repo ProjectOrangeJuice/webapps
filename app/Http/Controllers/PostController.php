@@ -28,8 +28,10 @@ class PostController extends Controller
     } 
 
     public function data($id){
-        $post = Post::with(["tags","images"])->find($id);
-
+        //$post = Post::with(["tags","images"])->find($id);
+        $post = Post::with(["images","tags" => function ($query) {
+            $query->select('tag',"id","confirmed");
+        }])->where("id",$id)->first();
         return $post;
     } 
 

@@ -1995,6 +1995,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2010,20 +2011,22 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    axios.get("/postData/" + editCode).then(function (response) {
-      _this.title = response.data.title;
-      _this.tags = response.data.tags;
-      _this.content = response.data.content;
-      _this.images = response.data.images;
-    })["catch"](function (response) {
-      console.log("Error " + response);
-    });
+    if (editCode != -1) {
+      axios.get("/postData/" + editCode).then(function (response) {
+        _this.title = response.data.title;
+        _this.tags = response.data.tags;
+        _this.content = response.data.content;
+        _this.images = response.data.images;
+      })["catch"](function (response) {
+        console.log("Error " + response);
+      });
+    }
   },
   methods: {
     addTag: function addTag() {
       this.tags.push({
-        name: this.tag,
-        approved: false
+        tag: this.tag,
+        confirmed: false
       });
       this.tag = "";
     },
@@ -2044,7 +2047,7 @@ __webpack_require__.r(__webpack_exports__);
       this.errors = [];
       var mTag = [];
       this.tags.forEach(function (item) {
-        mTag.push(item["name"]);
+        mTag.push(item["tag"]);
       });
       axios.post("/post", {
         title: this.title,
@@ -37803,9 +37806,9 @@ var render = function() {
           { staticClass: "row" },
           _vm._l(_vm.tags, function(t) {
             return _c("div", { staticClass: "col-" }, [
-              !t.approved
+              !t.confirmed
                 ? _c("div", { staticClass: "rounded border border-danger" }, [
-                    _c("b", [_vm._v(_vm._s(t.name))]),
+                    _c("b", [_vm._v(_vm._s(t.tag))]),
                     _vm._v(" "),
                     _c(
                       "button",
@@ -37821,7 +37824,7 @@ var render = function() {
                     )
                   ])
                 : _c("div", { staticClass: "rounded border border-success" }, [
-                    _c("b", [_vm._v(_vm._s(t.name))]),
+                    _c("b", [_vm._v(_vm._s(t.tag))]),
                     _vm._v(" "),
                     _c("button", { staticClass: "btn btn-danger" }, [
                       _vm._v("X")

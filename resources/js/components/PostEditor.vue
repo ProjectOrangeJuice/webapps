@@ -18,14 +18,15 @@
         </div>
       </div>
       <div class="row">
+       
         <div v-for="t in tags" class="col-">
-          <div v-if="!t.approved" class="rounded border border-danger">
-            <b>{{ t.name }}</b>
+          <div v-if="!t.confirmed" class="rounded border border-danger">
+            <b>{{ t.tag }}</b>
             <button class="btn btn-danger" @click="removeTag(t)">X</button>
           </div>
 
           <div v-else class="rounded border border-success">
-            <b>{{ t.name }}</b>
+            <b>{{ t.tag }}</b>
             <button class="btn btn-danger">X</button>
           </div>
         </div>
@@ -67,6 +68,7 @@ export default {
     };
   },
   mounted() {
+    if(editCode != -1){
     axios
       .get("/postData/" + editCode)
       .then(response => {
@@ -78,10 +80,11 @@ export default {
       .catch(response => {
         console.log("Error " + response);
       });
+    }
   },
   methods: {
     addTag: function() {
-      this.tags.push({ name: this.tag, approved: false });
+      this.tags.push({ tag: this.tag, confirmed: false });
       this.tag = "";
     },
     removeTag: function($tag) {
@@ -99,7 +102,7 @@ export default {
       this.errors = [];
       var mTag = [];
       this.tags.forEach(function(item) {
-        mTag.push(item["name"]);
+        mTag.push(item["tag"]);
       });
       axios
         .post("/post", {
