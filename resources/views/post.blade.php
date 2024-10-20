@@ -17,6 +17,11 @@
 <p>Author: {{ $post->user->name }}</p>
 
 <p>Date: {{ $post->created_at }}</p>
+
+@if ($edit)
+    <a href="/post?post={{$post->id}}"> Edit this post</a>
+@endif
+
 </div>
 </div>
 

@@ -7,6 +7,7 @@ use App\Post;
 use App\Tag;
 use Auth;
 use File;
+use Illuminate\Support\Facades\Gate;
 use App\Image;
 class PostController extends Controller
 {
@@ -23,8 +24,8 @@ class PostController extends Controller
 
     public function perPost($id){
         $post = Post::find($id);
-
-        return view("post",["post"=>$post]);
+        
+        return view("post",["post"=>$post,"edit"=>Gate::allows("edit-post",$post)]);
     } 
 
     public function data($id){
