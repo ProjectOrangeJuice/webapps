@@ -50,8 +50,8 @@ Route::middleware('auth')->get("/admin/user/{user}","AdminController@user");
 Route::middleware('auth')->get("/admin/tags","AdminController@tags");
 
 //These are the basic form posts.
-Route::middleware('auth')->post("/admin/tags/make","AdminController@makeTag");
-Route::middleware('auth')->post("/admin/tags/delete","AdminController@deleteTag");
+Route::middleware('auth')->post("/admin/tags/make","TagController@store");
+Route::middleware('auth')->post("/admin/tags/delete","TagController@destory");
 
 Route::middleware('auth')->get("/account","UserController@index");
 Route::middleware('auth')->post("/account","UserController@update");

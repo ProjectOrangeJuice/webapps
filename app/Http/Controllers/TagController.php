@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Tag;
 use App\Post;
 use App\Quote\Qod;
+use Illuminate\Auth\Access\Gate;
 
 class TagController extends Controller
 {
@@ -16,39 +17,39 @@ class TagController extends Controller
      */
     public function index(Request $request, Qod $q)
     {
-        
-            if($request->has("search")){
-                $tagText = $request->search;
-                $tag = Tag::where("tag",$tagText)->first();
 
-                if($tag == null){
-                    return view("tags")->withErrors(["The tag $tag was not found"]);
-                }else{
-                    $posts = Post::whereHas("tags" ,function($query) use ($tag){
-                        $query->where("confirmed",1);
-                        $query->where("tag_id",$tag->id);
-                    })->paginate(10)->appends(["search"=>$tag->tag]);
+        if ($request->has("search")) {
+            $tagText = $request->search;
+            $tag = Tag::where("tag", $tagText)->first();
 
-                    return view("tags",["tag"=>$tag,"posts"=>$posts]);
-                }
-                
-                
-            }else{
-                $tagFound = false;
-                while(!$tagFound){
-                    $tag = Tag::all()->random();
-                    if(count($tag->posts) > 0){
-                        $tagFound = true;
-                    }
-                }
-                return redirect()->route('tag.index', ['search' => $tag->tag]);
+            if ($tag == null) {
+                return view("tags")->withErrors(["The tag $tag was not found"]);
+            } else {
+                $posts = Post::whereHas("tags", function ($query) use ($tag) {
+                    $query->where("confirmed", 1);
+                    $query->where("tag_id", $tag->id);
+                })->paginate(10)->appends(["search" => $tag->tag]);
+
+                return view("tags", ["tag" => $tag, "posts" => $posts]);
             }
-            
+        } else {
+            $tagFound = false;
+            while (!$tagFound) {
+                $tag = Tag::all()->random();
+                if (count($tag->posts) > 0) {
+                    $tagFound = true;
+                }
+            }
+            return redirect()->route('tag.index', ['search' => $tag->tag]);
+        }
     }
 
-    public function mod(Tag $tag){
-        $posts = $tag->posts->where("pivot.confirmed",false);
-        return view("admin/modTags",["tag"=>$tag,"posts"=>$posts]);
+    public function mod(Tag $tag)
+    {
+        if (Gate::allows("edit-tag", $tag)) {
+            $posts = $tag->posts->where("pivot.confirmed", false);
+            return view("admin/modTags", ["tag" => $tag, "posts" => $posts]);
+        }
     }
 
 
@@ -70,7 +71,14 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (Gate::allows("admin-tasks")) {
+            $tag = new Tag;
+            $tag->tag = $request->tag;
+            $tag->save();
+            return redirect()->back();
+        } else {
+            abort(403);
+        }
     }
 
     /**
@@ -113,8 +121,14 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        if (Gate::allows("admin-tasks")) {
+            $tag = Tag::where("tag", $request->tag)->first();
+            $tag->delete();
+            return redirect()->back();
+        } else {
+            abort(403);
+        }
     }
 }
