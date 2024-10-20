@@ -50,6 +50,7 @@
                 @if (Route::has('login'))
                 @auth
                 <a href="{{ url('/logout') }}">Logout</a>
+                <a href="{{ url('/post') }}">Create post</a>
                 @else
                 <a href="{{ route('login') }}">Login</a>
 
