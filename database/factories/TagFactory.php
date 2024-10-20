@@ -7,6 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Tag::class, function (Faker $faker) {
     return [
-        "tag"=> $faker->realText(10,1),
+        "tag"=> $faker->words(1)[0],
     ];
 });
