@@ -66,7 +66,7 @@ export default {
     },
     deleteComment: function(id){
        axios
-        .delete("/comment/" + id)
+        .delete("/api/comment/" + id)
         .then(response => {
           this.moveComments(this.pageNumber());
           this.errors = [];
