@@ -49,7 +49,7 @@
     </div>
     <button class="btn btn-success form-control" @click="save">Save</button>
     <hr />
-    <button class="btn btn-danger form-control">Delete</button>
+    <button class="btn btn-danger form-control" @click="deletePost">Delete</button>
   </div>
 </template>
 
@@ -81,6 +81,8 @@ export default {
         console.log("Error " + response);
         if(response.response.status == 401){
             alert("You need to login!");
+          }else if(response.response.status == 404){
+             window.location = "/";
           }
       });
     }
@@ -158,6 +160,19 @@ export default {
         .delete("/api/image/"+img.location)
         .then(response => {
           this.images.splice(img, 1);
+        })
+        .catch(response => {
+          if(response.response.status == 401){
+            alert("You need to login!");
+          }
+          console.log("Error " + response);
+        });
+    },
+    deletePost() {
+      axios
+        .delete("/api/post/"+editCode)
+        .then(response => {
+         window.location = "/";
         })
         .catch(response => {
           if(response.response.status == 401){
