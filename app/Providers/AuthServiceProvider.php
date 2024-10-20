@@ -48,9 +48,15 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('edit-post', function ($user, $post) {
            
-                return $user->posts->find($post->id) != null;
-            
-        });
+            return $user->posts->find($post->id) != null;
+        
+    });
+
+    Gate::define('edit-comment', function ($user, $comment) {
+           
+        return $user->comments->find($comment->id) != null;
+    
+});
 
 
         Passport::routes();
