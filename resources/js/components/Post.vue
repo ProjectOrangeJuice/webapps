@@ -4,7 +4,7 @@
     <h4>Write a comment</h4>
     <li v-for="error in errors">{{ error }}</li>
     <textarea class="form-control" rows="4" v-model="commentBox"></textarea>
-    <button @click="sendComment">Send</button>
+    <button @click="sendComment" class="btn btn-primary">Send</button>
     </div>
     <div v-else class="alert alert-warning">
       <a href="/login">Login</a> to post a comment
