@@ -1857,12 +1857,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       comments: [],
       commentBox: "",
-      errors: []
+      errors: [],
+      login: amILoggedIn
     };
   },
   mounted: function mounted() {
@@ -37305,47 +37313,55 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("h4", [_vm._v("Write a comment")]),
-      _vm._v(" "),
-      _vm._l(_vm.errors, function(error) {
-        return _c("li", [_vm._v(_vm._s(error))])
-      }),
-      _vm._v(" "),
-      _c("textarea", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.commentBox,
-            expression: "commentBox"
-          }
-        ],
-        staticClass: "form-control",
-        attrs: { rows: "4" },
-        domProps: { value: _vm.commentBox },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.commentBox = $event.target.value
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c("button", { on: { click: _vm.sendComment } }, [_vm._v("Send")]),
+      _vm.login == 1
+        ? _c(
+            "div",
+            [
+              _c("h4", [_vm._v("Write a comment")]),
+              _vm._v(" "),
+              _vm._l(_vm.errors, function(error) {
+                return _c("li", [_vm._v(_vm._s(error))])
+              }),
+              _vm._v(" "),
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.commentBox,
+                    expression: "commentBox"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { rows: "4" },
+                domProps: { value: _vm.commentBox },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.commentBox = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("button", { on: { click: _vm.sendComment } }, [_vm._v("Send")])
+            ],
+            2
+          )
+        : _c("div", { staticClass: "alert alert-warning" }, [
+            _c("a", { attrs: { href: "/login" } }, [_vm._v("Login")]),
+            _vm._v(" to post a comment\n    ")
+          ]),
       _vm._v(" "),
       _vm._l(_vm.comments.data, function(comment) {
-        return _c("div", [
+        return _c("div", { staticClass: "alert alert-secondary" }, [
+          _c("h4", [_vm._v(_vm._s(comment.user.name) + " says")]),
+          _vm._v(" "),
           _c("p", [_vm._v(_vm._s(comment.comment))]),
           _vm._v(" "),
           _c("p", [
-            _vm._v(
-              "By " +
-                _vm._s(comment.user.name) +
-                " at " +
-                _vm._s(comment.created_at)
-            )
+            _c("i", [_vm._v("Posted at " + _vm._s(comment.created_at))])
           ])
         ])
       }),
