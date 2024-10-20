@@ -15,7 +15,8 @@ class TagController extends Controller
     public function index(Request $request)
     {
             if($request->has("search")){
-                return view("tags",["tag"=>"hi","posts"=>""]);
+                $tag = $request->search;
+                return view("search")->withErrors(["$tag not found"]);
             }else{
                 $posts = [];
                 while(count($posts) === 0 ){
