@@ -66,7 +66,7 @@
     </form>
 
     <script>
-        var notepad = {{route("notepad")}};
+        var notepad = "{{route("notepad")}}";
         </script>
     <div id="app">
         <notepad></notepad>
