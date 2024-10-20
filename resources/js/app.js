@@ -14,6 +14,8 @@ Vue.component('posteditor', require('./components/PostEditor.vue').default);
 
 Vue.component('adminuser', require('./components/adminuser.vue').default);
 
+Vue.component('notepad', require('./components/notes.vue').default);
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

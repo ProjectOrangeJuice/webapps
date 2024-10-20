@@ -64,7 +64,14 @@
         </div>
        <input type="submit" value="save">
     </form>
+
+    <div id="app">
+        <notepad></notepad>
+        </div>
+        
 </div>
+
+
 
 </div>
 

@@ -18,6 +18,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
+Route::middleware('auth:api')->get('/notepad', function (Request $request) {
+    return $request->user()->notepad;
+});
+
+Route::middleware('auth:api')->put('/notepad', function (Request $request) {
+    $notes = htmlspecialchars($request->notes);
+    $user = $request->user();
+    $request->user()->notepad->content = $notes;
+    $request->user()->save();
+
+});
+
 Route::get("/comments/{post}", function($post){
     $comments = App\Comment::with(["user" => function ($query) {
         $query->select('name',"id");

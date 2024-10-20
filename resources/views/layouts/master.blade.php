@@ -49,8 +49,12 @@
                 @endif
                 @if (Route::has('login'))
                 @auth
-                <a href="{{ url('/logout') }}">Logout</a>
-                <a href="{{ url('/post') }}">Create post</a>
+                <a href="{{ url('/logout') }}">Logout </a>
+                <a href="{{ url('/post') }}"> Create post </a>
+                <a href="/account"> Your account </a>
+                @if (Auth::user()->admin)
+                <a href="/account"> Admin </a>
+                @endif
                 @else
                 <a href="{{ route('login') }}">Login</a>
 
