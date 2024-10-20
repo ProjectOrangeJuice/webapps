@@ -16,7 +16,7 @@ class TagController extends Controller
      */
     public function index(Request $request, Qod $q)
     {
-        dd($q);
+        
             if($request->has("search")){
                 $tagText = $request->search;
                 $tag = Tag::where("tag",$tagText)->first();
