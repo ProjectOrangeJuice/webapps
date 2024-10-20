@@ -27,12 +27,14 @@ class TagController extends Controller
                 
                 
             }else{
-                $posts = [];
-                while(count($posts) === 0 ){
+                $tagFound = false;
+                while(!$tagFound){
                     $tag = Tag::all()->random();
-                    $posts = $tag->posts()->paginate(10)->appends(["search"=>$tag->tag]);
+                    if(count($tag->posts) > 0){
+                        $tagFound = true;
+                    }
                 }
-                return view("tags",["tag"=>$tag,"posts"=>$posts]);
+                return redirect()->route('tag.index', ['search' => $tag->tag]);
             }
             
     }
