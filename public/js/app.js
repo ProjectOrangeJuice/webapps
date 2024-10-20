@@ -2074,12 +2074,10 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    removeImage: function removeImage(img) {
+    removeImg: function removeImg(img) {
       var _this3 = this;
 
-      axios["delete"]("/images", {
-        image: img
-      }).then(function (response) {
+      axios["delete"]("/image/" + img.location).then(function (response) {
         _this3.images.splice(img, 1);
       })["catch"](function (response) {
         console.log("Error " + response);

@@ -137,11 +137,9 @@ export default {
          
         });
     },
-    removeImage(img) {
+    removeImg(img) {
       axios
-        .delete("/images", {
-          image: img
-        })
+        .delete("/image/"+img.location)
         .then(response => {
           this.images.splice(img, 1);
         })
