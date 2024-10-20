@@ -38,7 +38,7 @@
             <div class="my-2 my-lg-0">
                 @if (!Request::is("home"))
                 <form class="form-inline" action="/tags" method="GET">
-                    <input class="form-control" type="search" placeholder="Search tag">
+                    <input class="form-control" type="search" name="search" placeholder="Search tag">
                     <button class="btn btn-primary" type="submit">Search</button>
                 </form>
                 @endif
