@@ -2,7 +2,7 @@
 
 @section("content")
 <h1> {{ $tag->tag ?? "Oops!" }}</h1>
-@if ($posts)
+@if ($posts ?? [])
 <p>There are {{ $posts->total() }} results!</p> 
 @endif
 
