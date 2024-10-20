@@ -44,6 +44,9 @@ class TagController extends Controller
         }
     }
 
+    /**
+     * Display the posts that require moderation for this tag
+     */
     public function mod(Tag $tag)
     {
         if (Gate::allows("edit-tag", $tag)) {

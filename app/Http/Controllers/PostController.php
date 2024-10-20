@@ -13,14 +13,18 @@ use App\Image;
 class PostController extends Controller
 {
 
-
+    /**
+     * display a post
+     */
     public function perPost(Post $id)
     {
         $post = $id;
 
         return view("post", ["title"=>$post->title,"post" => $post, "edit" => Gate::allows("edit-post", $post)]);
     }
-
+    /**
+     * Get the raw data for a post
+     */
     public function data($id)
     {
         $post = Post::with(["images", "tags" => function ($query) {
@@ -108,7 +112,9 @@ class PostController extends Controller
         }
     }
 
-
+    /**
+     * Delete an image
+     */
     public function imageDelete($img)
     {
 
@@ -121,7 +127,9 @@ class PostController extends Controller
             }
         }
     }
-
+    /**
+     * Upload an image and add it to a post
+     */
     public function imageUpload(Request $request)
     {
         $post = Post::find($request->post);
@@ -180,7 +188,9 @@ class PostController extends Controller
         }
     }
 
-
+/**
+     * Delete a post
+     */
     public function destroy(Post $post)
     {
 

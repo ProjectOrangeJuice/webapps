@@ -10,12 +10,16 @@ use Gate;
 
 class CommentController extends Controller
 {
+
     public function __construct()
     {
 
         $this->middleware('auth')->except(["fromPost"]);
     }
 
+    /**
+     * Get the comments for a post
+     */
     public function fromPost(Post $post, Request $request)
     {
         $comments = Comment::with(["user" => function ($query) {
@@ -30,6 +34,9 @@ class CommentController extends Controller
         return $comments;
     }
 
+    /**
+     * Check to see if the current user can edit this comment
+     */
     public function canEdit($comment, $user){
        
         if ($user) {
@@ -47,7 +54,7 @@ class CommentController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created comment in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -90,7 +97,9 @@ class CommentController extends Controller
             abort(403);
         }
     }
-
+    /**
+     * Update the comment
+     */
     public function update(Comment $post, Request $request)
     {
      
