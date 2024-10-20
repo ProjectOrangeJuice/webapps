@@ -31,10 +31,11 @@
       <h4>Images</h4>
       <div class="input-group mb-3">
         <input type="file" class="form-control" v-on:change="fileChange" />
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button">Add</button>
-        </div>
-      </div>(foreach image)
+      </div>
+      <div v-for="img in uimages">
+        {{ img.name }}
+        <button @click="removeFile(img)">Remove</button>
+      </div>
     </div>
     <button class="btn btn-success form-control" @click="save">Save</button>
     <hr />
@@ -51,7 +52,7 @@ export default {
       tag: "",
       tags: [],
       content: "",
-      images: []
+      uimages: []
     };
   },
   methods: {
@@ -65,10 +66,14 @@ export default {
     fileChange(e) {
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
+      this.uimages.push(files[0]);
+    },
+    removeFile(f) {
+      this.uimages.splice(f, 1);
     },
     save() {
-      var mTag = []
-      this.tags.forEach(function(item){
+      var mTag = [];
+      this.tags.forEach(function(item) {
         mTag.push(item["name"]);
       });
       axios
@@ -76,14 +81,28 @@ export default {
           title: this.title,
           tags: mTag,
           content: this.content
-
         })
         .then(response => {
-         console.log(response);
+          console.log(response);
+          this.uimages.forEach(function(img) {
+            //upload the images
+            let form = new FormData();
+
+            form.append("image", img);
+
+            axios
+              .post("/images", form)
+              .then(function(response) {
+                console.log("SUCCESS!!" + response);
+              })
+              .catch(function(response) {
+                console.log("FAILURE!!" + response);
+              });
+          });
         })
         .catch(response => {
-         console.log("error");
-         console.log(response);
+          console.log("error");
+          console.log(response);
         });
     }
   }
