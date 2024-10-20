@@ -53,7 +53,8 @@
                 <a href="{{ url('/post') }}"> Create post </a>
                 <a href="/account"> Your account </a>
                 @if (Auth::user()->admin)
-                <a href="/account"> Admin </a>
+                <a href="/admin/users"> USERS </a>
+                <a href="/admin/tags"> TAGS </a>
                 @endif
                 @else
                 <a href="{{ route('login') }}">Login</a>

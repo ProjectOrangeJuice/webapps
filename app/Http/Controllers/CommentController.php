@@ -25,17 +25,25 @@ class CommentController extends Controller
             //We don't use the auth middleware, so we have to get the user this way
             //so we can't use the gates
             $user = $request->user('api');
-            if ($user) {
-                if ($user->admin) {
-                    $comment->canEdit = true;
-                } else {
-                    $comment->canEdit = $user->id == $comment->user_id;
-                }
-            }else{
-                $comment->canEdit = false;
-            }
+          $comment->canEdit = $this->canEdit($comment,$user);
         }
         return $comments;
+    }
+
+    public function canEdit($comment, $user){
+       
+        if ($user) {
+            if ($user->admin) {
+                return true;
+            } else if(!$comment->post->tags->whereIn("tag",$user->admins->pluck("tag")->toArray())->isEmpty()){
+                return true;
+            }
+            else {
+                return $user->id == $comment->user_id;
+            }
+        }else{
+          return false;
+        }
     }
 
     /**

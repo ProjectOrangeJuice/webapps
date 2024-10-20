@@ -56,8 +56,14 @@ class AuthServiceProvider extends ServiceProvider
     });
 
     Gate::define('edit-comment', function ($user, $comment) {
-        
-        return $user->comments->find($comment->id) != null;
+        if($user->comments->find($comment->id) != null){
+            return true;
+        }else if(!$comment->post->tags->whereIn("tag",$user->admins->pluck("tag")->toArray())->isEmpty()){
+            return true;
+        }else{
+            return false;
+        }
+
     
 });
 
